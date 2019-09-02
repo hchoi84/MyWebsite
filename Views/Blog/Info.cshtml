@@ -1,0 +1,43 @@
+@{
+  ViewData["Title"] = "Finally Launched My Website";
+}
+@model Blog
+
+<h1 class="text-center">@Model.Title</h1>
+<p class="text-center">@Model.CreatedAt.ToString("yyyy-MM-dd dddd HH:mm")</p>
+<p>
+  @Model.Content
+</p>
+
+<div class="container text-center">
+  @foreach(BlogImg img in Model.BlogImgs)
+  {
+    <div class="col" style="height: 150px; max-width: 19%; display: inline-block; vertical-align: top;">
+      <img src="~/img/@img.ImgLoc" alt="" style="max-height: 100%; max-width: 100%;">
+    </div>  
+  }
+  @* <!-- <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div>
+  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
+    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
+  </div> --> *@
+</div>

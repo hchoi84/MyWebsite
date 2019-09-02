@@ -1,0 +1,88 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+/* *{
+  border: 1px dotted gray;
+} */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Home page styles
+-------------------------------------------------- */
+.header-bg{
+  background: rgba(0, 0, 0, .05);
+  height: 100%;
+  width: 100%;
+}
+
+.project-section{
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 0px;
+}
+.project-img{
+  background: rgba(0, 0, 0, .05);
+  height: 300px;
+  border-radius: 30px 30px 0px 0px;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  margin: auto;
+  width: 98%;
+  white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+/* ---------------------------------------------------
+    IMAGE STYLE
+----------------------------------------------------- */
+.proj-images{
+  height: 198px; 
+  width: 200px; 
+  object-fit: cover; 
+  transition: .5s;
+}
+.proj-images:hover{
+  transform: scale(1.1);
+}

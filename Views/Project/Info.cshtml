@@ -1,0 +1,38 @@
+@{
+  ViewData["Title"] = "Dojo Activity Center";
+}
+@model Project
+
+<h1 class="text-center" style="margin-bottom: 20px;">@Model.Title</h1>
+
+<div class="container text-center">
+  @foreach(ProjectImg img in Model.ProjectImgs)
+  {
+  <div class="col" style="height: 200px; max-width: 24%; display: inline-block; vertical-align: top;">
+    <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
+      <img src="~/img/@img.ImgLoc" alt="" class="proj-images img-fluid">
+    </a>
+  </div>
+  }
+</div>
+
+<div style="margin-top: 20px;">
+  <p>Language and Technologies:</p>
+  <p>@Model.LangAndTech</p>
+
+  <p>What I learned:</p>
+  <p>@Model.Learned</p>
+
+  <p>Most difficult part:</p>
+  <p>@Model.Difficult</p>
+
+  <p>
+    Github Repo: 
+    <a href="@Model.RepoURL" target="_blank"> Click here to see the Repo</a>    
+  </p>
+
+  <p>
+    Live Link: 
+    <a href="http://@Model.LiveURL" target="_blank">Click here for Live Demo</a>
+  </p>
+</div>

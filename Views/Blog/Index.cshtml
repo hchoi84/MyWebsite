@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "Blogs";
+}
+@model List<Blog>
+
+<div class="wrapper">
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      Blog Filter
+    </div>
+
+    <ul class="list-unstyled components">
+      <p>Filter Blog</p>
+      <li>
+        @foreach(KeyValuePair<DateTime, int> count in ViewBag.blogCount)
+          {
+            if(count.Value == 0) { continue; }
+            if(count.Key.Day == 31)
+            {
+              <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">@count.Key.Year (@count.Value)</a>
+              continue;
+            }
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li><a href="#">@count.Key.ToString("MMM") (@count.Value)</a></li>
+            </ul>
+          }
+      @* <!-- <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+        <ul class="collapse list-unstyled" id="homeSubmenu">
+          <li><a href="#">Home 1</a></li>
+          <li><a href="#">Home 2</a></li>
+          <li><a href="#">Home 3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">About</a></li>
+      <li>
+        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+        <ul class="collapse list-unstyled" id="pageSubmenu">
+          <li><a href="#">Home 1</a></li>
+          <li><a href="#">Home 2</a></li>
+          <li><a href="#">Home 3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Contact</a></li> --> *@
+    </ul>
+  </nav>
+
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+          <i class="fas fa-align-left"></i>
+          <span>Toggle Filter</span>
+        </button>
+      </div>
+    </nav>
+
+    <h1>@Model[0].CreatedAt.ToString("MMMM")</h1>
+    <div class="row justify-content-md-center" style="margin: 10px 0px;">
+      <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
+        <h2 style="margin: 0px">@Model[0].CreatedAt.Day</h2>
+        <h2 style="margin: 0px">@Model[0].CreatedAt.ToString("ddd")</h2>
+        <h2 style="margin: 0px">@Model[0].CreatedAt.ToString("HH:mm")</h2>
+      </div>
+      <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+        <h4>
+          <a asp-action="Info" asp-route-title="@Model[0].Title" style="color: #1735b1;">@Model[0].Title</a>
+        </h4>
+        <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+          @Model[0].Content
+        </p>
+      </div>
+    </div>
+    @for (int i = 1; i < Model.Count; i++)
+    {
+      if (Model[i].CreatedAt.Month != Model[i-1].CreatedAt.Month)
+      {
+        <h1>@Model[i].CreatedAt.ToString("MMMM")</h1>
+      }
+      <div class="row justify-content-md-center" style="margin: 10px 0px;">
+        <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
+          <h2 style="margin: 0px">@Model[i].CreatedAt.Day</h2>
+          <h2 style="margin: 0px">@Model[i].CreatedAt.ToString("ddd")</h2>
+          <h2 style="margin: 0px">@Model[i].CreatedAt.ToString("HH:mm")</h2>
+        </div>
+        <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+          <h4><a asp-action="Info" asp-route-title="@Model[i].Title">
+            @Model[i].Title
+          </a></h4>
+          <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+            @Model[i].Content
+          </p>
+        </div>
+      </div>
+    }
+
+    <h1>July</h1>
+    <div class="row justify-content-md-center" style="margin: 10px 0px;">
+      <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
+        <h2 style="margin: 0px">27</h2>
+        <h2 style="margin: 0px">Tue</h2>
+        <h2 style="margin: 0px">14:57</h2>
+      </div>
+      <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+        <h4>Finally Launched My Website</h4>
+        <p style="margin: 0px;">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse....
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-md-center" style="margin: 10px 0px;">
+      <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
+        <h2 style="margin: 0px">27</h2>
+        <h2 style="margin: 0px">Tue</h2>
+        <h2 style="margin: 0px">14:57</h2>
+      </div>
+      <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+        <h4>Finally Launched My Website</h4>
+        <p style="margin: 0px;">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse....
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-md-center" style="margin: 10px 0px;">
+      <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
+        <h2 style="margin: 0px">27</h2>
+        <h2 style="margin: 0px">Tue</h2>
+        <h2 style="margin: 0px">14:57</h2>
+      </div>
+      <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+        <h4>Finally Launched My Website</h4>
+        <p style="margin: 0px;">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse....
+        </p>
+      </div>
+    </div>
+
+    <h1>June</h1>
+    <div class="row justify-content-md-center" style="margin: 10px 0px;">
+      <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
+        <h2 style="margin: 0px">27</h2>
+        <h2 style="margin: 0px">Tue</h2>
+        <h2 style="margin: 0px">14:57</h2>
+      </div>
+      <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+        <h4>Finally Launched My Website</h4>
+        <p style="margin: 0px;">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse....
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>

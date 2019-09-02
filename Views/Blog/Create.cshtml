@@ -1,0 +1,40 @@
+@{
+  ViewData["Title"] = "Create";
+}
+@model BlogViewModel
+
+<form enctype="multipart/form-data" asp-controller="Blog" asp-action="Create" method="post">
+  <div class="form-group">
+    <label asp-for="Title">Title</label>
+    <input asp-for="Title" class="form-control">
+    <span asp-validation-for="Title"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Content">Content</label>
+    <textarea asp-for="Content" class="form-control"></textarea>
+    <span asp-validation-for="Content"></span>
+  </div>
+  <div class="custom-file">
+    <input multiple asp-for="Imgs" class="custom-file-input">
+    <label asp-for="Imgs" class="custom-file-label">Choose Files(s)...</label>
+    <span asp-validation-for="Imgs"></span>
+  </div>
+  <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+
+  @section Scripts{
+    <script>
+      $(document).ready(function () {
+        $(".custom-file-input").on("change", function () {
+          var fileLabel = $(this).next(".custom-file-label");
+          var files = $(this)[0].files;
+          if (files.length > 1){
+            fileLabel.html(files.length + " files selected");
+          }
+          else if (files.length == 1){
+            fileLabel.html(files[0].name);
+          }
+        });
+      });
+    </script>
+  }
+</form>
