@@ -20,7 +20,7 @@
           <ul class="collapse list-unstyled" id="yearSubmenu">
           @foreach(KeyValuePair<DateTime, int> blog in ViewBag.blogCountByMonth)
           {
-            if(blog.Key.Year == year && blog.Key.Month == month && blog.Value != 0)
+            if(blog.Value != 0 && blog.Key.Year == year && blog.Key.Month == month)
             {
               <li><a href="#" class="blog-filter">@blog.Key.ToString("MMM") (@blog.Value)</a></li>
             }

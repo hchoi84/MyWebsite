@@ -69,6 +69,19 @@ namespace MyWebsite.Controllers
     {
       if (ModelState.IsValid)
       {
+        foreach(IFormFile img in newBlog.Imgs)
+        {
+          if (img.ContentType.Split("/")[0] != "image")
+          {
+            ModelState.AddModelError("Imgs", "Only image files are allowed");
+            return View();
+          }
+          if(img.Length > 5000000)
+          {
+            ModelState.AddModelError("Imgs", "Maximum file size is 5Mb");
+            return View();
+          }
+        }
 				Blog blog = new Blog()
 				{
 					Title = newBlog.Title,
