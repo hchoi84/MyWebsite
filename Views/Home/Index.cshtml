@@ -11,70 +11,34 @@
 </div>
 
 <div class="text-center" style="margin-top: 30px;">
-	<h1 style="margin: 0px 0px 30px 0px;">Recent Projects</h1>
+	<h1 class="slide-in" style="color: #00008b; margin: 0px 0px 30px 0px; position: relative; left: -250px; opacity: 0;">Recent Projects</h1>
 	<div class="container">
-		<!-- <div class="row"> -->
-			@foreach (Project project in Model.Projects)
-			{
-			<div class="col-sm project-section" style="max-width: 33%; display: inline-block">
-				<img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt" 
-				style="width: 100%; height: 300px; object-fit: cover; border-radius: 30px 30px 0px 0px; padding: 2px 2px;">
-				<div style="padding: 0px 10px;">
-					<h3 class="text-center" style="margin: 15px 0px; height: 73px;">
-						<a asp-controller="Project" asp-action="Info" asp-route-title="@project.Title">@project.Title</a>
-					</h3>
-					<p class="text-center" style="height: 59px;">@project.LangAndTech</p>
-					<div class="icons" style="display: flex; justify-content: space-evenly;">
-						<a href="http://@project.LiveURL" target="_blank">
-							<img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">
-						</a>
-						<a href="@project.RepoURL" target="_blank">
-							<img src="~/img/icon-github.png" style="height:50px; width:50px;" alt="Github icon">
-						</a>
-					</div>
+		@foreach (Project project in Model.Projects)
+		{
+		<div class="col-sm project-section" style="max-width: 33%; display: inline-block">
+			<img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt" 
+			style="width: 100%; height: 300px; object-fit: cover; border-radius: 30px 30px 0px 0px; padding: 2px 2px;">
+			<div style="padding: 0px 10px;">
+				<h3 class="text-center" style="margin: 15px 0px; height: 73px;">
+					<a asp-controller="Project" asp-action="Info" asp-route-title="@project.Title">@project.Title</a>
+				</h3>
+				<p class="text-center" style="height: 59px;">@project.LangAndTech</p>
+				<div class="icons" style="display: flex; justify-content: space-evenly;">
+					<a href="http://@project.LiveURL" target="_blank">
+						<img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">
+					</a>
+					<a href="@project.RepoURL" target="_blank">
+						<img src="~/img/icon-github.png" style="height:50px; width:50px;" alt="Github icon">
+					</a>
 				</div>
 			</div>
-			}
-			@* <!-- <div class="col-sm project-section">
-				<div class="project-img"></div>
-				<div style="padding: 0px 10px;">
-					<h3 style="margin: 15px 0px;">Activity Center</h3>
-					<p class="text-left font-weight-bold" style="margin: 0px;">Key Features:</p>
-					<ul class="text-left">
-						<li style="font-size: 12px;">Login and Registration with validation</li>
-						<li style="font-size: 12px;">Create, delete, join, and leave activity</li>
-						<li style="font-size: 12px;">Activity conflict checker</li>
-					</ul>
-					<p class="text-left">C# .NET, MySQL, LINQ, Bootstrap</p>
-					<div class="icons" style="display: flex; justify-content: space-evenly;">
-						<img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">
-						<img src="~/img/icon-github.png" style="height:50px; width:50px;" alt="Github icon">
-					</div>
-				</div>
-			</div>
-			<div class="col-sm project-section">
-				<div class="project-img"></div>
-				<div style="padding: 0px 10px;">
-					<h3 style="margin: 15px 0px;">Activity Center</h3>
-					<p class="text-left font-weight-bold" style="margin: 0px;">Key Features:</p>
-					<ul class="text-left">
-						<li style="font-size: 12px;">Login and Registration with validation</li>
-						<li style="font-size: 12px;">Create, delete, join, and leave activity</li>
-						<li style="font-size: 12px;">Activity conflict checker</li>
-					</ul>
-					<p class="text-left">C# .NET, MySQL, LINQ, Bootstrap</p>
-					<div class="icons" style="display: flex; justify-content: space-evenly;">
-						<img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">
-						<img src="~/img/icon-github.png" style="height:50px; width:50px;" alt="Github icon">
-					</div>
-				</div>
-			</div> --> *@
-		<!-- </div> -->
+		</div>
+		}
 	</div>
 </div>
 
-<div class="text-center header-bg" style="margin-top: 30px;">
-	<h1 style="margin: 0px 0px 30px 0px;">Recent Blogs</h1>
+<div class="text-center header-bg" style="margin-top: 30px; padding-top: 30px;">
+	<h1 class="slide-in" style="color: #00008b; margin: 0px 0px 30px 0px; position: relative; left: -250px; opacity: 0;">Recent Blogs</h1>
 
 	@* TODO indicate max height *@
 	@foreach (Blog blog in Model.Blogs)

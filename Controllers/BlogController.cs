@@ -28,22 +28,26 @@ namespace MyWebsite.Controllers
     [HttpGet("blogs")]
     public IActionResult Index()
     {
+      ViewBag.Now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+      Dictionary<int, int> blogCountByYear = new Dictionary<int, int>();
+      Dictionary<DateTime, int> blogCountByMonth = new Dictionary<DateTime, int>();
+      
       List<Blog> blogs = dbContext.Blogs
         .OrderByDescending(b => b.CreatedAt)
         .ToList();
-      Dictionary<DateTime, int> blogCount = new Dictionary<DateTime, int>();
       DateTime firstBlogDateTime = blogs.Last().CreatedAt;
       for (int year = DateTime.Now.Year; year >= firstBlogDateTime.Year; year--)
       {
         int yearCount = blogs.Where(b => b.CreatedAt.Year == year).Count();
-        blogCount.Add(new DateTime(year, 12, 31), yearCount);
+        blogCountByYear.Add(year, yearCount);
         for (int month = DateTime.Now.Month; month >= 1; month--)
         {
           int monthCount = blogs.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).Count();
-          blogCount.Add(new DateTime(year, month, 1), monthCount);
+          blogCountByMonth.Add(new DateTime(year, month, 1), monthCount);
         }
       }
-      ViewBag.blogCount = blogCount;
+      ViewBag.blogCountByYear = blogCountByYear;
+      ViewBag.blogCountByMonth = blogCountByMonth;
       return View(blogs);
     }
 
