@@ -4,7 +4,7 @@
 @model BlogsProjectsViewModel
 
 <div class="text-center header-bg">
-	<h1 class="display-4">WELCOME!!</h1>
+	<h1 class="display-4 slide-in" style="color: #00008b; font-weight: bold; position: relative; left: -250px; opacity: 0;">WELCOME!!</h1>
 	<h3>My name is Howard. I am a</h3>
 	<h3>Web Developer, Gamer, Health Enthusiast</h3>
 	<h3>and Knowledge Seeker</h3>
@@ -20,10 +20,10 @@
 				<img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt" 
 				style="width: 100%; height: 300px; object-fit: cover; border-radius: 30px 30px 0px 0px; padding: 2px 2px;">
 				<div style="padding: 0px 10px;">
-					<h3 class="text-center" style="margin: 15px 0px;">
+					<h3 class="text-center" style="margin: 15px 0px; height: 73px;">
 						<a asp-controller="Project" asp-action="Info" asp-route-title="@project.Title">@project.Title</a>
 					</h3>
-					<p class="text-center">@project.LangAndTech</p>
+					<p class="text-center" style="height: 59px;">@project.LangAndTech</p>
 					<div class="icons" style="display: flex; justify-content: space-evenly;">
 						<a href="http://@project.LiveURL" target="_blank">
 							<img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">
@@ -84,7 +84,7 @@
 				<h3>
 					<a asp-controller="Blog" asp-action="Info" asp-route-title="@blog.Title">@blog.Title</a>
 				</h3>
-				<p class="text-left" style="margin: 0px;">
+				<p class="text-left" style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
 					@blog.Content
 				</p>
 				<p class="text-right small">

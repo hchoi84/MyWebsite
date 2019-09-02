@@ -12,10 +12,10 @@
       <img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt" 
       style="width: 100%; height: 300px; object-fit: cover; border-radius: 30px; padding: 2px 2px; border-bottom: 1px dotted black;">
       <div style="padding: 0px 10px;">
-        <h3 class="text-center" style="margin: 15px 0px;">
+        <h3 class="text-center" style="margin: 15px 0px; height: 73px;">
           <a asp-action="Info" asp-route-title="@project.Title">@project.Title</a>
         </h3>
-        <p class="text-center">@project.LangAndTech</p>
+        <p class="text-center" style="height: 59px;">@project.LangAndTech</p>
         <div class="icons" style="display: flex; justify-content: space-evenly;">
           <a href="http://@project.LiveURL" target="_blank">
             <img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">

@@ -13,4 +13,6 @@
     event.preventDefault();
     $(this).ekkoLightbox();
   });
+
+  $('.slide-in').animate({left: '0px', opacity: 1}, 2000);
 });

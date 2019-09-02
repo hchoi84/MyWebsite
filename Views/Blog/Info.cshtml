@@ -9,35 +9,14 @@
   @Model.Content
 </p>
 
-<div class="container text-center">
+<div class="text-center">
   @foreach(BlogImg img in Model.BlogImgs)
   {
-    <div class="col" style="height: 150px; max-width: 19%; display: inline-block; vertical-align: top;">
-      <img src="~/img/@img.ImgLoc" alt="" style="max-height: 100%; max-width: 100%;">
+    <div class="col" style="height: 300px; width: 19%; display: inline-block; vertical-align: top;">
+      <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
+        <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="proj-images img-fluid"
+        style="width: 100%; height: 100%; object-fit: cover;">
+      </a>
     </div>  
   }
-  @* <!-- <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div>
-  <div class="col" style="height: 150px; max-width: 19%; display: inline-block;">
-    <img src="~/img/icon-linkedin.png" alt="" style="max-height: 100%; max-width: 100%;">
-  </div> --> *@
 </div>

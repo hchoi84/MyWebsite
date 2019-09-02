@@ -17,11 +17,12 @@
             if(count.Value == 0) { continue; }
             if(count.Key.Day == 31)
             {
-              <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">@count.Key.Year (@count.Value)</a>
+              <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle blog-filter">@count.Key.Year (@count.Value)</a>
               continue;
             }
+            @* <!-- TODO create another ViewBag for month and iterate within the <ul> tag--> *@
             <ul class="collapse list-unstyled" id="homeSubmenu">
-              <li><a href="#">@count.Key.ToString("MMM") (@count.Value)</a></li>
+              <li><a href="#" class="blog-filter">@count.Key.ToString("MMM") (@count.Value)</a></li>
             </ul>
           }
       @* <!-- <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
@@ -58,13 +59,13 @@
     <h1>@Model[0].CreatedAt.ToString("MMMM")</h1>
     <div class="row justify-content-md-center" style="margin: 10px 0px;">
       <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
-        <h2 style="margin: 0px">@Model[0].CreatedAt.Day</h2>
-        <h2 style="margin: 0px">@Model[0].CreatedAt.ToString("ddd")</h2>
-        <h2 style="margin: 0px">@Model[0].CreatedAt.ToString("HH:mm")</h2>
+        <h4 style="margin: 2px">@Model[0].CreatedAt.Day</h4>
+        <h4 style="margin: 2px">@Model[0].CreatedAt.ToString("ddd")</h4>
+        <h4 style="margin: 2px">@Model[0].CreatedAt.ToString("HH:mm")</h4>
       </div>
       <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
         <h4>
-          <a asp-action="Info" asp-route-title="@Model[0].Title" style="color: #1735b1;">@Model[0].Title</a>
+          <a asp-action="Info" asp-route-title="@Model[0].Title">@Model[0].Title</a>
         </h4>
         <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
           @Model[0].Content
@@ -79,15 +80,15 @@
       }
       <div class="row justify-content-md-center" style="margin: 10px 0px;">
         <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
-          <h2 style="margin: 0px">@Model[i].CreatedAt.Day</h2>
-          <h2 style="margin: 0px">@Model[i].CreatedAt.ToString("ddd")</h2>
-          <h2 style="margin: 0px">@Model[i].CreatedAt.ToString("HH:mm")</h2>
+          <h4 style="margin: 3px">@Model[i].CreatedAt.Day</h4>
+          <h4 style="margin: 3px">@Model[i].CreatedAt.ToString("ddd")</h4>
+          <h4 style="margin: 3px">@Model[i].CreatedAt.ToString("HH:mm")</h4>
         </div>
         <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
           <h4><a asp-action="Info" asp-route-title="@Model[i].Title">
             @Model[i].Title
           </a></h4>
-          <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+          <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
             @Model[i].Content
           </p>
         </div>
