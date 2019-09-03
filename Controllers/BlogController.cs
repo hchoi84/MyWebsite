@@ -73,6 +73,7 @@ namespace MyWebsite.Controllers
       if (ModelState.IsValid)
       {
         if(!AreImagesValid(newBlog.Imgs)) { return View(); }
+        
 				Blog blog = new Blog();
         blog.Add(newBlog);
 
@@ -81,7 +82,7 @@ namespace MyWebsite.Controllers
 
         if (newBlog.Imgs != null && newBlog.Imgs.Count > 0)
         {
-					CreateBlogImgRow(blog.BlogId, newBlog.Imgs);
+					CreateBlogImgRows(blog.BlogId, newBlog.Imgs);
         }
 				return RedirectToAction("Index");
       }
@@ -104,7 +105,7 @@ namespace MyWebsite.Controllers
         }
       return true;
     }
-    public void CreateBlogImgRow(int blogId, List<IFormFile> newBlogImgs)
+    public void CreateBlogImgRows(int blogId, List<IFormFile> newBlogImgs)
     {
       string uniqueFileName = null;
       string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");

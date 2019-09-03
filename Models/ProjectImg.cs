@@ -9,5 +9,12 @@ namespace MyWebsite.Models
     public int ProjectId { get; set; }
     public string ImgLoc { get; set; }
     public string Alt { get; set; }
+
+    public void Add(int projectId, string uniqueFileName, string alt)
+    {
+      ProjectId = projectId;
+      ImgLoc = uniqueFileName;
+      Alt = alt;
+    }
   }
 }

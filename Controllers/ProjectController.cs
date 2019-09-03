@@ -54,41 +54,55 @@ namespace MyWebsite.Controllers
     {
       if (ModelState.IsValid)
       {
-        Project project = new Project()
-        {
-          Title = newProject.Title,
-          LangAndTech = newProject.LangAndTech,
-					Learned = newProject.Learned,
-					Difficult = newProject.Difficult,
-					RepoURL = newProject.RepoURL,
-					LiveURL = newProject.LiveURL
-        };
+        if(!AreImagesValid(newProject.Imgs)) { return View(); }
+
+        Project project = new Project();
+        project.Add(newProject);
+
         dbContext.Projects.Add(project);
         dbContext.SaveChanges();
 
-        string uniqueFileName = null;
         if (newProject.Imgs != null && newProject.Imgs.Count > 0)
         {
-          string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
-          foreach (IFormFile img in newProject.Imgs)
-          {
-            uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
-            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            img.CopyTo(new FileStream(filePath, FileMode.Create));
-
-            ProjectImg projectImg = new ProjectImg()
-            {
-              ProjectId = project.ProjectId,
-              ImgLoc = uniqueFileName,
-              Alt = img.FileName
-            };
-            dbContext.ProjectImgs.Add(projectImg);
-            dbContext.SaveChanges();
-          }
+          CreateProjectImgRows(newProject.Imgs, project.ProjectId);
         }
         return RedirectToAction("Index");
       }
       return View();
+    }
+    public bool AreImagesValid(List<IFormFile> newProjImgs)
+    {
+      foreach(IFormFile img in newProjImgs)
+        {
+          if (img.ContentType.Split("/")[0] != "image")
+          {
+            ModelState.AddModelError("Imgs", "Only image files are allowed");
+            return false;
+          }
+          if(img.Length > 5000000)
+          {
+            ModelState.AddModelError("Imgs", "Maximum file size is 5Mb");
+            return false;
+          }
+        }
+      return true;
+    }
+    public void CreateProjectImgRows(List<IFormFile> newProjImgs, int projectId)
+    {
+      string uniqueFileName = null;
+      string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
+      foreach (IFormFile img in newProjImgs)
+      {
+        uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
+        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        img.CopyTo(new FileStream(filePath, FileMode.Create));
+
+        ProjectImg projectImg = new ProjectImg();
+        projectImg.Add(projectId, uniqueFileName, img.FileName);
+
+        dbContext.ProjectImgs.Add(projectImg);
+        dbContext.SaveChanges();
+      }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

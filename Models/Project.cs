@@ -34,5 +34,15 @@ namespace MyWebsite.Models
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
     public List<ProjectImg> ProjectImgs { get; set; }
+
+    public void Add(ProjectViewModel newProject)
+    {
+      Title = newProject.Title;
+      LangAndTech = newProject.LangAndTech;
+      Learned = newProject.Learned;
+      Difficult = newProject.Difficult;
+      RepoURL = newProject.RepoURL;
+      LiveURL = newProject.LiveURL;
+    }
   }
 }

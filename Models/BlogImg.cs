@@ -14,8 +14,8 @@ namespace MyWebsite.Models
     public void Add(int blogId, string uniqueFileName, string fileName)
     {
       this.BlogId = blogId;
-      ImgLoc = uniqueFileName;
-      Alt = fileName;
+      this.ImgLoc = uniqueFileName;
+      this.Alt = fileName;
     }
   }
 }
