@@ -164,6 +164,10 @@ namespace MyWebsite.Controllers
       // TODO prevent other edits from getting lost (i.e. title, content)
       dbContext.BlogImgs.Remove(img);
       dbContext.SaveChanges();
+
+      string fileLocation = Path.Combine(hostingEnvironment.WebRootPath, "img", img.ImgLoc);
+      System.IO.File.Delete(fileLocation);
+
       return RedirectToAction("EditForm", new { id = _blogId });
     }
 
