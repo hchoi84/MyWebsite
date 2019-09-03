@@ -20,5 +20,11 @@ namespace MyWebsite.Models
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
     public List<BlogImg> BlogImgs { get; set; }
+
+    public void Add(BlogViewModel newBlog)
+    {
+      this.Title = newBlog.Title;
+      this.Content = newBlog.Content;
+    }
   }
 }

@@ -10,5 +10,12 @@ namespace MyWebsite.Models
     public int BlogId { get; set; }
     public string ImgLoc { get; set; }
     public string Alt { get; set; }
+
+    public void Add(int blogId, string uniqueFileName, string fileName)
+    {
+      this.BlogId = blogId;
+      ImgLoc = uniqueFileName;
+      Alt = fileName;
+    }
   }
 }
