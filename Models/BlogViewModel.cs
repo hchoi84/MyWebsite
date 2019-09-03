@@ -16,5 +16,11 @@ namespace MyWebsite.Models
 
     [Display(Name="Images")]
     public List<IFormFile> Imgs { get; set; }
+
+    public void AddFieldValues(Blog blog)
+    {
+      this.Title = blog.Title;
+      this.Content = blog.Content;
+    }
   }
 }

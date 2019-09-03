@@ -26,5 +26,13 @@ namespace MyWebsite.Models
       this.Title = newBlog.Title;
       this.Content = newBlog.Content;
     }
+
+    public void Update(int blogId, BlogViewModel editBlog)
+    {
+      this.BlogId = blogId;
+      this.Title = editBlog.Title;
+      this.Content = editBlog.Content;
+      this.UpdatedAt = DateTime.Now;
+    }
   }
 }

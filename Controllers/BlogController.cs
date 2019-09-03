@@ -17,6 +17,11 @@ namespace MyWebsite.Controllers
 {
   public class BlogController : Controller
   {
+    private int? _blogId
+    {
+      get { return HttpContext.Session.GetInt32("blogID"); }
+      set { HttpContext.Session.SetInt32("blogID", (int)value); }
+    }
     private WebsiteContext dbContext;
     private IHostingEnvironment hostingEnvironment;
     public BlogController(WebsiteContext context, IHostingEnvironment hostingEnvironment)
@@ -80,17 +85,14 @@ namespace MyWebsite.Controllers
 				dbContext.Blogs.Add(blog);
 				dbContext.SaveChanges();
 
-        if (newBlog.Imgs != null && newBlog.Imgs.Count > 0)
-        {
-					CreateBlogImgRows(blog.BlogId, newBlog.Imgs);
-        }
+        CreateBlogImgRows(blog.BlogId, newBlog.Imgs);
 				return RedirectToAction("Index");
       }
       return View();
     }
-    public bool AreImagesValid(List<IFormFile> newBlogImgs)
+    public bool AreImagesValid(List<IFormFile> blogImgs)
     {
-      foreach(IFormFile img in newBlogImgs)
+      foreach(IFormFile img in blogImgs)
         {
           if (img.ContentType.Split("/")[0] != "image")
           {
@@ -105,22 +107,64 @@ namespace MyWebsite.Controllers
         }
       return true;
     }
-    public void CreateBlogImgRows(int blogId, List<IFormFile> newBlogImgs)
+    public void CreateBlogImgRows(int blogId, List<IFormFile> blogImgs)
     {
-      string uniqueFileName = null;
-      string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
-      foreach (IFormFile img in newBlogImgs)
+      if (blogImgs != null && blogImgs.Count > 0)
       {
-        uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
-        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        img.CopyTo(new FileStream(filePath, FileMode.Create));
+        string uniqueFileName = null;
+        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
+        foreach (IFormFile img in blogImgs)
+        {
+          uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
+          string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+          img.CopyTo(new FileStream(filePath, FileMode.Create));
 
-        BlogImg blogImg = new BlogImg();
-        blogImg.Add(blogId, uniqueFileName, img.FileName);
+          BlogImg blogImg = new BlogImg();
+          blogImg.Add(blogId, uniqueFileName, img.FileName);
 
-        dbContext.BlogImgs.Add(blogImg);
-        dbContext.SaveChanges();
+          dbContext.BlogImgs.Add(blogImg);
+          dbContext.SaveChanges();
+        }
       }
+    }
+
+    [HttpGet("blogs/edit/{id}")]
+    public IActionResult EditForm(int id)
+    {
+      _blogId = id;
+      Blog blog = dbContext.Blogs.Include(b => b.BlogImgs).FirstOrDefault(b => b.BlogId == id);
+      BlogViewModel editBlog = new BlogViewModel();
+      editBlog.AddFieldValues(blog);
+      
+      ViewBag.Imgs = blog.BlogImgs;
+      return View("Edit", editBlog);
+    }
+    
+    [HttpPost("blogs/edit")]
+    public IActionResult Edit(BlogViewModel editBlog)
+    {
+      if(!ModelState.IsValid) { return View(); }
+      if(!AreImagesValid(editBlog.Imgs)) { return View(); }
+      
+      Blog blog = dbContext.Blogs.Include(b => b.BlogImgs).FirstOrDefault(b => b.BlogId == _blogId);
+      blog.Update((int)_blogId, editBlog);
+      dbContext.SaveChanges();
+
+      CreateBlogImgRows((int)_blogId, editBlog.Imgs);
+      HttpContext.Session.Remove("blogId");
+      
+      return RedirectToAction("Info", new { title = blog.Title });
+    }
+
+    [HttpPost("blogs/edit/deleteimg/{id}")]
+    public IActionResult DeleteImg(int id)
+    {
+      BlogImg img = dbContext.BlogImgs.FirstOrDefault(b => b.BlogImgId == id);
+      // TODO remove images in batch using Checkboxes(?)
+      // TODO prevent other edits from getting lost (i.e. title, content)
+      dbContext.BlogImgs.Remove(img);
+      dbContext.SaveChanges();
+      return RedirectToAction("EditForm", new { id = _blogId });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
