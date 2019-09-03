@@ -1,0 +1,56 @@
+@{
+  ViewData["Title"] = "Edit Project";
+}
+@model ProjectViewModel
+
+<form enctype="multipart/form-data" asp-controller="Project" asp-action="Edit" method="post">
+  <div class="form-group">
+    <label asp-for="Title">Title</label>
+    <input asp-for="Title" class="form-control">
+    <span asp-validation-for="Title"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="LangAndTech">Language and Tech</label>
+    <input asp-for="LangAndTech" class="form-control">
+    <span asp-validation-for="LangAndTech"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Learned">Learned</label>
+    <input asp-for="Learned" class="form-control">
+    <span asp-validation-for="Learned"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Difficult">Difficulty</label>
+    <input asp-for="Difficult" class="form-control">
+    <span asp-validation-for="Difficult"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="RepoURL">Repo URL</label>
+    <input asp-for="RepoURL" class="form-control">
+  </div>
+  <div class="form-group">
+    <label asp-for="LiveURL">Live URL</label>
+    <input asp-for="LiveURL" class="form-control">
+  </div>
+  <div class="custom-file">
+    <input asp-for="Imgs" class="custom-file-input">
+    <label asp-for="Imgs" class="custom-file-label">Choose File(s)...</label>
+    <span asp-validation-for="Imgs"></span>
+  </div>
+  <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Update</button>
+</form>
+
+<div class="text-center">
+  @foreach(ProjectImg img in ViewBag.Imgs)
+  {
+  <div class="col" style="height: 300px; max-width: 19%; display: inline-block; vertical-align: top;">
+    <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
+      <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="proj-images img-fluid"
+      style="width: 100%; height: 100%; object-fit: cover;">
+    </a>
+    <form asp-controller="Project" asp-action="DeleteImg" asp-route-id=@img.ProjectImgId method="post">
+      <button class="btn btn-danger">DELETE</button>
+    </form>
+  </div>
+  }
+</div>

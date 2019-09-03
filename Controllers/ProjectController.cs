@@ -17,6 +17,11 @@ namespace MyWebsite.Controllers
 {
   public class ProjectController : Controller
   {
+    private int? _projectId
+    {
+      get { return HttpContext.Session.GetInt32("projectId"); }
+      set { HttpContext.Session.SetInt32("projectId", (int)value); }
+    }
 		private WebsiteContext dbContext;
     private IHostingEnvironment hostingEnvironment;
     public ProjectController(WebsiteContext context, IHostingEnvironment hostingEnvironment)
@@ -70,9 +75,10 @@ namespace MyWebsite.Controllers
       }
       return View();
     }
-    public bool AreImagesValid(List<IFormFile> newProjImgs)
+    public bool AreImagesValid(List<IFormFile> projImgs)
     {
-      foreach(IFormFile img in newProjImgs)
+      if (projImgs == null) { return true; }
+      foreach(IFormFile img in projImgs)
         {
           if (img.ContentType.Split("/")[0] != "image")
           {
@@ -87,24 +93,71 @@ namespace MyWebsite.Controllers
         }
       return true;
     }
-    public void CreateProjectImgRows(List<IFormFile> newProjImgs, int projectId)
+    public void CreateProjectImgRows(List<IFormFile> projImgs, int projectId)
     {
-      string uniqueFileName = null;
-      string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
-      foreach (IFormFile img in newProjImgs)
+      if (projImgs != null && projImgs.Count > 0)
       {
-        uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
-        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        img.CopyTo(new FileStream(filePath, FileMode.Create));
+        string uniqueFileName = null;
+        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
+        foreach (IFormFile img in projImgs)
+        {
+          uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
+          string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+          img.CopyTo(new FileStream(filePath, FileMode.Create));
 
-        ProjectImg projectImg = new ProjectImg();
-        projectImg.Add(projectId, uniqueFileName, img.FileName);
+          ProjectImg projectImg = new ProjectImg();
+          projectImg.Add(projectId, uniqueFileName, img.FileName);
 
-        dbContext.ProjectImgs.Add(projectImg);
-        dbContext.SaveChanges();
+          dbContext.ProjectImgs.Add(projectImg);
+          dbContext.SaveChanges();
+        }
       }
     }
 
+    [HttpGet("projects/edit/{id}")]
+    public IActionResult EditForm(int id) => View("Edit", GetEditInfo(id));
+    public ProjectViewModel GetEditInfo(int id)
+    {
+      _projectId = id;
+      Project project = dbContext.Projects.Include(p => p.ProjectImgs).FirstOrDefault(p => p.ProjectId == id);
+      ProjectViewModel editProject = new ProjectViewModel();
+      editProject.AddFieldValues(project);
+      
+      ViewBag.Imgs = project.ProjectImgs;
+      return editProject;
+    }
+
+    [HttpPost("projects/edit")]
+    public IActionResult Edit(ProjectViewModel editProject)
+    {
+      if(!ModelState.IsValid) { return View(); }
+      if(!AreImagesValid(editProject.Imgs)) { return View(GetEditInfo((int)_projectId)); }
+      
+      Project project = dbContext.Projects.Include(p => p.ProjectImgs).FirstOrDefault(p => p.ProjectId == _projectId);
+      project.Update((int)_projectId, editProject);
+      dbContext.SaveChanges();
+
+      CreateProjectImgRows(editProject.Imgs, (int)_projectId);
+      HttpContext.Session.Remove("projectId");
+      
+      return RedirectToAction("Info", new { title = project.Title });
+    }
+
+    [HttpPost("projects/edit/deleteimg/{id}")]
+    public IActionResult DeleteImg(int id)
+    {
+      ProjectImg img = dbContext.ProjectImgs.FirstOrDefault(b => b.ProjectImgId == id);
+      // TODO remove images in batch using Checkboxes(?)
+      // TODO prevent other edits from getting lost (i.e. title, content)
+      dbContext.ProjectImgs.Remove(img);
+      dbContext.SaveChanges();
+
+      string fileLocation = Path.Combine(hostingEnvironment.WebRootPath, "img", img.ImgLoc);
+      System.IO.File.Delete(fileLocation);
+
+      return RedirectToAction("EditForm", new { id = _projectId });
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

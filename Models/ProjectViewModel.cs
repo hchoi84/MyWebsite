@@ -28,8 +28,17 @@ namespace MyWebsite.Models
     [Display(Name="Live URL (Optional)")]
     public string LiveURL { get; set; }
 
-    [Required(ErrorMessage="Required")]
     [Display(Name="Images")]
     public List<IFormFile> Imgs { get; set; }
+
+    public void AddFieldValues(Project editProject)
+    {
+      this.Title = editProject.Title;
+      this.LangAndTech = editProject.LangAndTech;
+      this.Learned = editProject.Learned;
+      this.Difficult = editProject.Difficult;
+      this.RepoURL = editProject.RepoURL;
+      this.LiveURL = editProject.LiveURL;
+    }
   }
 }

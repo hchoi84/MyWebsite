@@ -92,6 +92,7 @@ namespace MyWebsite.Controllers
     }
     public bool AreImagesValid(List<IFormFile> blogImgs)
     {
+      if (blogImgs == null) { return true; }
       foreach(IFormFile img in blogImgs)
         {
           if (img.ContentType.Split("/")[0] != "image")
@@ -129,7 +130,8 @@ namespace MyWebsite.Controllers
     }
 
     [HttpGet("blogs/edit/{id}")]
-    public IActionResult EditForm(int id)
+    public IActionResult EditForm(int id) => View("Edit", GetEditInfo(id));
+    public BlogViewModel GetEditInfo(int id)
     {
       _blogId = id;
       Blog blog = dbContext.Blogs.Include(b => b.BlogImgs).FirstOrDefault(b => b.BlogId == id);
@@ -137,14 +139,14 @@ namespace MyWebsite.Controllers
       editBlog.AddFieldValues(blog);
       
       ViewBag.Imgs = blog.BlogImgs;
-      return View("Edit", editBlog);
+      return editBlog;
     }
     
     [HttpPost("blogs/edit")]
     public IActionResult Edit(BlogViewModel editBlog)
     {
       if(!ModelState.IsValid) { return View(); }
-      if(!AreImagesValid(editBlog.Imgs)) { return View(); }
+      if(!AreImagesValid(editBlog.Imgs)) { return View(GetEditInfo((int)_blogId)); }
       
       Blog blog = dbContext.Blogs.Include(b => b.BlogImgs).FirstOrDefault(b => b.BlogId == _blogId);
       blog.Update((int)_blogId, editBlog);

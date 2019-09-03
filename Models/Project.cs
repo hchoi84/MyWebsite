@@ -44,5 +44,17 @@ namespace MyWebsite.Models
       RepoURL = newProject.RepoURL;
       LiveURL = newProject.LiveURL;
     }
+
+    public void Update(int projectId, ProjectViewModel editProject)
+    {
+      this.ProjectId = projectId;
+      this.Title = editProject.Title;
+      this.LangAndTech = editProject.LangAndTech;
+      this.Learned = editProject.Learned;
+      this.Difficult = editProject.Difficult;
+      this.RepoURL = editProject.RepoURL;
+      this.LiveURL = editProject.LiveURL;
+      this.UpdatedAt = DateTime.Now;
+    }
   }
 }
