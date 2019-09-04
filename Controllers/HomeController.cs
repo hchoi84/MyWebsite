@@ -79,7 +79,12 @@ namespace MyWebsite.Controllers
     }
 
     [HttpGet("register")]
-    public IActionResult Register() => View();
+    public IActionResult Register()
+    {
+      User userExists = dbContext.Users.FirstOrDefault();
+      if (userExists != null) { return RedirectToAction("Login"); }
+      return View();
+    }
     [HttpPost("register")]
     public IActionResult CreateUser(User newUser)
     {
@@ -109,7 +114,7 @@ namespace MyWebsite.Controllers
       _tempMsg = "Goodbye!";
       return RedirectToAction("Index");
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
