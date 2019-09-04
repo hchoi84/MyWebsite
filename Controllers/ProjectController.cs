@@ -123,6 +123,7 @@ namespace MyWebsite.Controllers
       ProjectViewModel editProject = new ProjectViewModel();
       editProject.AddFieldValues(project);
       
+      // TODO consider adding List<ProjectImgs> to ProjectViewModel
       ViewBag.Imgs = project.ProjectImgs;
       return editProject;
     }

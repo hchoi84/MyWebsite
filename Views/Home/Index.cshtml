@@ -3,14 +3,14 @@
 }
 @model BlogsProjectsViewModel
 
-<div class="text-center header-bg">
+<div class="text-center header-bg" style="margin: 30px 0px; padding: 30px 0px;">
 	<h1 class="display-4 slide-in" style="color: #00008b; font-weight: bold; position: relative; left: -250px; opacity: 0;">WELCOME!!</h1>
 	<h3>My name is Howard. I am a</h3>
 	<h3>Web Developer, Gamer, Health Enthusiast</h3>
 	<h3>and Knowledge Seeker</h3>
 </div>
 
-<div class="text-center" style="margin-top: 30px;">
+<div class="text-center" style="margin: 30px 0px; padding: 0px 0px 30px 0px;">
 	<h1 class="slide-in" style="color: #00008b; margin: 0px 0px 30px 0px; position: relative; left: -250px; opacity: 0;">Recent Projects</h1>
 	<div class="container">
 		@foreach (Project project in Model.Projects)
@@ -37,10 +37,9 @@
 	</div>
 </div>
 
-<div class="text-center header-bg" style="margin-top: 30px; padding-top: 30px;">
+<div class="text-center header-bg" style="margin: 30px 0px; padding: 30px 0px;">
 	<h1 class="slide-in" style="color: #00008b; margin: 0px 0px 30px 0px; position: relative; left: -250px; opacity: 0;">Recent Blogs</h1>
 
-	@* TODO indicate max height *@
 	@foreach (Blog blog in Model.Blogs)
 	{
 		<div class="row" style="display: flex; justify-content: center; margin-bottom: 15px;">

@@ -3,55 +3,57 @@
 }
 @model ProjectViewModel
 
-<form enctype="multipart/form-data" asp-controller="Project" asp-action="Create" method="post">
-  <div class="form-group">
-    <label asp-for="Title">Title</label>
-    <input asp-for="Title" class="form-control">
-    <span asp-validation-for="Title"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="LangAndTech">Language and Tech</label>
-    <input asp-for="LangAndTech" class="form-control">
-    <span asp-validation-for="LangAndTech"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="Learned">Learned</label>
-    <input asp-for="Learned" class="form-control">
-    <span asp-validation-for="Learned"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="Difficult">Difficulty</label>
-    <input asp-for="Difficult" class="form-control">
-    <span asp-validation-for="Difficult"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="RepoURL">Repo URL</label>
-    <input asp-for="RepoURL" class="form-control">
-  </div>
-  <div class="form-group">
-    <label asp-for="LiveURL">Live URL</label>
-    <input asp-for="LiveURL" class="form-control">
-  </div>
-  <div class="custom-file">
-    <input asp-for="Imgs" class="custom-file-input">
-    <label asp-for="Imgs" class="custom-file-label">Choose file</label>
-    <span asp-validation-for="Imgs"></span>
-  </div>
-  <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
-  @section Scripts{
-    <script>
-      $(document).ready(function () {
-        $(".custom-file-input").on("change", function () {
-          var fileLabel = $(this).next(".custom-file-label");
-          var files = $(this)[0].files;
-          if (files.length > 1){
-            fileLabel.html(files.length + " files selected");
-          }
-          else if (files.length == 1){
-            fileLabel.html(files[0].name);
-          }
+<div style="margin: 30px 0px; padding: 30px 0px;">
+  <form enctype="multipart/form-data" asp-controller="Project" asp-action="Create" method="post">
+    <div class="form-group">
+      <label asp-for="Title">Title</label>
+      <input asp-for="Title" class="form-control">
+      <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="LangAndTech">Language and Tech</label>
+      <input asp-for="LangAndTech" class="form-control">
+      <span asp-validation-for="LangAndTech"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Learned">Learned</label>
+      <input asp-for="Learned" class="form-control">
+      <span asp-validation-for="Learned"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Difficult">Difficulty</label>
+      <input asp-for="Difficult" class="form-control">
+      <span asp-validation-for="Difficult"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="RepoURL">Repo URL</label>
+      <input asp-for="RepoURL" class="form-control">
+    </div>
+    <div class="form-group">
+      <label asp-for="LiveURL">Live URL</label>
+      <input asp-for="LiveURL" class="form-control">
+    </div>
+    <div class="custom-file">
+      <input asp-for="Imgs" class="custom-file-input">
+      <label asp-for="Imgs" class="custom-file-label">Choose file</label>
+      <span asp-validation-for="Imgs"></span>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+    @section Scripts{
+      <script>
+        $(document).ready(function () {
+          $(".custom-file-input").on("change", function () {
+            var fileLabel = $(this).next(".custom-file-label");
+            var files = $(this)[0].files;
+            if (files.length > 1){
+              fileLabel.html(files.length + " files selected");
+            }
+            else if (files.length == 1){
+              fileLabel.html(files[0].name);
+            }
+          });
         });
-      });
-    </script>
-  }
-</form>
+      </script>
+    }
+  </form>
+</div>

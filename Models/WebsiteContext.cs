@@ -9,5 +9,6 @@ namespace MyWebsite.Models
     public DbSet<BlogImg> BlogImgs { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<ProjectImg> ProjectImgs { get; set; }
+    public DbSet<User> Users { get; set; }
   }
 }
