@@ -4,13 +4,16 @@
 @model Blog
 
 <div style="margin: 30px 0px; padding: 30px 0px;">
-  <div class="text-center">
-    <a asp-action="EditForm" asp-route-id="@Model.BlogId">
-      <button class="btn btn-info">
-        <span>Edit Blog</span>
-      </button>
-    </a>
-  </div>
+  @if(ViewBag.isAdmin == true)
+  {
+    <div class="text-center">
+      <a asp-action="EditForm" asp-route-id="@Model.BlogId">
+        <button class="btn btn-info">
+          <span>Edit Blog</span>
+        </button>
+      </a>
+    </div>
+  }
   <h1 class="text-center">@Model.Title</h1>
   <p class="text-center">@Model.CreatedAt.ToString("yyyy-MM-dd dddd HH:mm")</p>
   <p>

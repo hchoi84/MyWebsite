@@ -43,6 +43,7 @@ namespace MyWebsite.Controllers
     [HttpGet("blogs")]
     public IActionResult Index()
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       ViewBag.Now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
       List<Blog> blogs = dbContext.Blogs
         .OrderByDescending(b => b.CreatedAt)
@@ -73,6 +74,7 @@ namespace MyWebsite.Controllers
     [HttpGet("blogs/{title}")]
     public IActionResult Info(string title)
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       Blog blog = dbContext.Blogs
         .Include(b => b.BlogImgs)
         .FirstOrDefault(b => b.Title == title);
@@ -82,6 +84,7 @@ namespace MyWebsite.Controllers
     [HttpGet("blogs/create")]
     public IActionResult CreateForm()
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       if (_uid == null){ return RedirectToAction("Login", "Home"); }
       return View("Create");
     }
@@ -147,6 +150,7 @@ namespace MyWebsite.Controllers
     [HttpGet("blogs/edit/{id}")]
     public IActionResult EditForm(int id)
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       if (_uid == null){ return RedirectToAction("Login", "Home"); }
       return View("Edit", GetEditInfo(id));
     }

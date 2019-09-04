@@ -37,6 +37,7 @@ namespace MyWebsite.Controllers
     [HttpGet("")]
     public IActionResult Index()
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       BlogsProjectsViewModel BPVM = new BlogsProjectsViewModel();
 
       List<Blog> blogs = dbContext.Blogs

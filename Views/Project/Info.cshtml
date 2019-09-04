@@ -4,13 +4,16 @@
 @model Project
 
 <div style="margin: 30px 0px; padding: 30px 0px;">
-  <div class="text-center">
-    <a asp-action="EditForm" asp-route-id="@Model.ProjectId">
-      <button class="btn btn-info">
-        <span>Edit Project</span>
-      </button>
-    </a>
-  </div>
+  @if(ViewBag.isAdmin == true)
+  {    
+    <div class="text-center">
+      <a asp-action="EditForm" asp-route-id="@Model.ProjectId">
+        <button class="btn btn-info">
+          <span>Edit Project</span>
+        </button>
+      </a>
+    </div>
+  }
   <h1 class="text-center" style="margin-bottom: 20px;">@Model.Title</h1>
 
   <div class="text-center">

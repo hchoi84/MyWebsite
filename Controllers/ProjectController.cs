@@ -43,6 +43,7 @@ namespace MyWebsite.Controllers
     [HttpGet("projects")]
     public IActionResult Index()
 		{
+      ViewBag.isAdmin = _uid != null ? true : false;
 			List<Project> projects = dbContext.Projects
 				.OrderByDescending(p => p.CreatedAt)
 				.Include(p => p.ProjectImgs)
@@ -54,6 +55,7 @@ namespace MyWebsite.Controllers
     [HttpGet("projects/{title}")]
     public IActionResult Info(string title)
 		{
+      ViewBag.isAdmin = _uid != null ? true : false;
 			Project project = dbContext.Projects
 				.Include(p => p.ProjectImgs)
 				.FirstOrDefault(p => p.Title == title);
@@ -64,6 +66,7 @@ namespace MyWebsite.Controllers
     [HttpGet("projects/create")]
     public IActionResult CreateForm()
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       if (_uid == null){ return RedirectToAction("Login", "Home"); }
       return View("Create");
     }
@@ -132,6 +135,7 @@ namespace MyWebsite.Controllers
     [HttpGet("projects/edit/{id}")]
     public IActionResult EditForm(int id)
     {
+      ViewBag.isAdmin = _uid != null ? true : false;
       if (_uid == null){ return RedirectToAction("Login", "Home"); }
       return View("Edit", GetEditInfo(id));
     }
