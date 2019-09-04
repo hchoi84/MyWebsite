@@ -4,6 +4,13 @@
 @model List<Project>
 
 <div style="margin: 30px 0px; padding: 30px 0px;">
+  <div class="text-center">
+    <a asp-action="CreateForm">
+      <button class="btn btn-info">
+        <span>Create Project</span>
+      </button>
+    </a>
+  </div>
   <p class="text-center">Projects from oldest (botton right) to newest (top left) by update date</p>
 
   <div class="container">
