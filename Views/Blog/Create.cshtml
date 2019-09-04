@@ -3,7 +3,7 @@
 }
 @model BlogViewModel
 
-<div style="margin: 30px 0px; padding: 30px 0px;">
+<div class="header-spacing">
   <form enctype="multipart/form-data" asp-controller="Blog" asp-action="Create" method="post">
     <div class="form-group">
       <label asp-for="Title">Title</label>
@@ -20,6 +20,6 @@
       <label asp-for="Imgs" class="custom-file-label">Choose Files(s)...</label>
       <span asp-validation-for="Imgs"></span>
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+    <button type="submit" class="btn btn-primary mt-20">Submit</button>
   </form>
 </div>

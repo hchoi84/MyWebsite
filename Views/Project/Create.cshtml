@@ -3,7 +3,7 @@
 }
 @model ProjectViewModel
 
-<div style="margin: 30px 0px; padding: 30px 0px;">
+<div class="header-spacing">
   <form enctype="multipart/form-data" asp-controller="Project" asp-action="Create" method="post">
     <div class="form-group">
       <label asp-for="Title">Title</label>
@@ -38,22 +38,6 @@
       <label asp-for="Imgs" class="custom-file-label">Choose file</label>
       <span asp-validation-for="Imgs"></span>
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
-    @section Scripts{
-      <script>
-        $(document).ready(function () {
-          $(".custom-file-input").on("change", function () {
-            var fileLabel = $(this).next(".custom-file-label");
-            var files = $(this)[0].files;
-            if (files.length > 1){
-              fileLabel.html(files.length + " files selected");
-            }
-            else if (files.length == 1){
-              fileLabel.html(files[0].name);
-            }
-          });
-        });
-      </script>
-    }
+    <button type="submit" class="btn btn-primary mt-20">Submit</button>
   </form>
 </div>

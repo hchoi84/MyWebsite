@@ -52,17 +52,17 @@
     </nav>
 
     <h1>@Model[0].CreatedAt.ToString("MMMM")</h1>
-    <div class="row justify-content-md-center" style="margin: 10px 0px;">
-      <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
-        <h4 style="margin: 2px">@Model[0].CreatedAt.Day</h4>
-        <h4 style="margin: 2px">@Model[0].CreatedAt.ToString("ddd")</h4>
-        <h4 style="margin: 2px">@Model[0].CreatedAt.ToString("HH:mm")</h4>
+    <div class="row justify-content-md-center blog-box">
+      <div class="col-2 text-center blog-box-date">
+        <h4>@Model[0].CreatedAt.Day</h4>
+        <h4>@Model[0].CreatedAt.ToString("ddd")</h4>
+        <h4>@Model[0].CreatedAt.ToString("HH:mm")</h4>
       </div>
-      <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+      <div class="col-9 blog-box-preview">
         <h4>
           <a asp-action="Info" asp-route-title="@Model[0].Title">@Model[0].Title</a>
         </h4>
-        <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+        <p>
           @Model[0].Content
         </p>
       </div>
@@ -73,17 +73,17 @@
       {
         <h1>@Model[i].CreatedAt.ToString("MMMM")</h1>
       }
-      <div class="row justify-content-md-center" style="margin: 10px 0px;">
-        <div class="col-2 text-center" style="border-left: 1px solid black; border-radius: 30px 0px 0px 30px;">
-          <h4 style="margin: 3px">@Model[i].CreatedAt.Day</h4>
-          <h4 style="margin: 3px">@Model[i].CreatedAt.ToString("ddd")</h4>
-          <h4 style="margin: 3px">@Model[i].CreatedAt.ToString("HH:mm")</h4>
+      <div class="row justify-content-md-center blog-box">
+        <div class="col-2 text-center blog-box-date">
+          <h4>@Model[i].CreatedAt.Day</h4>
+          <h4>@Model[i].CreatedAt.ToString("ddd")</h4>
+          <h4>@Model[i].CreatedAt.ToString("HH:mm")</h4>
         </div>
-        <div class="col-9" style="border-right: 1px solid black; border-radius: 0px 30px 30px 0px;">
+        <div class="col-9 blog-box-preview">
           <h4><a asp-action="Info" asp-route-title="@Model[i].Title">
             @Model[i].Title
           </a></h4>
-          <p style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+          <p>
             @Model[i].Content
           </p>
         </div>

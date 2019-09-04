@@ -3,32 +3,31 @@
 }
 @model BlogsProjectsViewModel
 
-<div class="text-center header-bg" style="margin: 30px 0px; padding: 30px 0px;">
-	<h1 class="display-4 slide-in" style="color: #00008b; font-weight: bold; position: relative; left: -250px; opacity: 0;">WELCOME!!</h1>
+<div class="text-center header-bg header-spacing">
+	<h1 class="display-4 slide-in index-welcome">WELCOME!!</h1>
 	<h3>My name is Howard. I am a</h3>
 	<h3>Web Developer, Gamer, Health Enthusiast</h3>
 	<h3>and Knowledge Seeker</h3>
 </div>
 
-<div class="text-center" style="margin: 30px 0px; padding: 0px 0px 30px 0px;">
-	<h1 class="slide-in" style="color: #00008b; margin: 0px 0px 30px 0px; position: relative; left: -250px; opacity: 0;">Recent Projects</h1>
+<div class="text-center recent-projects">
+	<h1 class="slide-in">Recent Projects</h1>
 	<div class="container">
 		@foreach (Project project in Model.Projects)
 		{
-		<div class="col-sm project-section" style="max-width: 33%; display: inline-block">
-			<img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt" 
-			style="width: 100%; height: 300px; object-fit: cover; border-radius: 30px 30px 0px 0px; padding: 2px 2px;">
-			<div style="padding: 0px 10px;">
-				<h3 class="text-center" style="margin: 15px 0px; height: 73px;">
+		<div class="col-sm project-section recent-project-box">
+			<img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt">
+			<div class="padding-0-10">
+				<h3 class="text-center">
 					<a asp-controller="Project" asp-action="Info" asp-route-title="@project.Title">@project.Title</a>
 				</h3>
-				<p class="text-center" style="height: 59px;">@project.LangAndTech</p>
-				<div class="icons" style="display: flex; justify-content: space-evenly;">
+				<p class="text-center">@project.LangAndTech</p>
+				<div class="icons">
 					<a href="http://@project.LiveURL" target="_blank">
-						<img src="~/img/icon-web.png" style="height:50px; width:50px;" alt="Link to live site">
+						<img src="~/img/icon-web.png" alt="Link to live site">
 					</a>
 					<a href="@project.RepoURL" target="_blank">
-						<img src="~/img/icon-github.png" style="height:50px; width:50px;" alt="Github icon">
+						<img src="~/img/icon-github.png" alt="Github icon">
 					</a>
 				</div>
 			</div>
@@ -37,17 +36,16 @@
 	</div>
 </div>
 
-<div class="text-center header-bg" style="margin: 30px 0px; padding: 30px 0px;">
-	<h1 class="slide-in" style="color: #00008b; margin: 0px 0px 30px 0px; position: relative; left: -250px; opacity: 0;">Recent Blogs</h1>
-
+<div class="text-center header-bg header-spacing">
+	<h1 class="slide-in recent-blogs-header">Recent Blogs</h1>
 	@foreach (Blog blog in Model.Blogs)
 	{
-		<div class="row" style="display: flex; justify-content: center; margin-bottom: 15px;">
-			<div class="col-11" style="border: 1px solid black; border-radius: 30px;">
+		<div class="row recent-blog-box">
+			<div class="col-11">
 				<h3>
 					<a asp-controller="Blog" asp-action="Info" asp-route-title="@blog.Title">@blog.Title</a>
 				</h3>
-				<p class="text-left" style="margin: 0px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+				<p class="text-left recent-blog-content">
 					@blog.Content
 				</p>
 				<p class="text-right small">
