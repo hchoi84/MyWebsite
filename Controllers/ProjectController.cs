@@ -17,6 +17,16 @@ namespace MyWebsite.Controllers
 {
   public class ProjectController : Controller
   {
+    public int? _uid
+    {
+      get { return HttpContext.Session.GetInt32("uid"); }
+      set { HttpContext.Session.SetInt32("uid", (int)value); }
+    }
+    public string _tempMsg
+    {
+      get { return HttpContext.Session.GetString("TempMsg"); }
+      set { HttpContext.Session.SetString("TempMsg", value); }
+    }
     private int? _projectId
     {
       get { return HttpContext.Session.GetInt32("projectId"); }
@@ -52,11 +62,16 @@ namespace MyWebsite.Controllers
 		}
 
     [HttpGet("projects/create")]
-    public IActionResult CreateForm() => View("Create");
+    public IActionResult CreateForm()
+    {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
+      return View("Create");
+    }
 
     [HttpPost("projects/create")]
     public IActionResult Create(ProjectViewModel newProject)
     {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
       if (ModelState.IsValid)
       {
         if(!AreImagesValid(newProject.Imgs)) { return View(); }
@@ -115,7 +130,11 @@ namespace MyWebsite.Controllers
     }
 
     [HttpGet("projects/edit/{id}")]
-    public IActionResult EditForm(int id) => View("Edit", GetEditInfo(id));
+    public IActionResult EditForm(int id)
+    {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
+      return View("Edit", GetEditInfo(id));
+    }
     public ProjectViewModel GetEditInfo(int id)
     {
       _projectId = id;
@@ -131,6 +150,7 @@ namespace MyWebsite.Controllers
     [HttpPost("projects/edit")]
     public IActionResult Edit(ProjectViewModel editProject)
     {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
       if(!ModelState.IsValid) { return View(); }
       if(!AreImagesValid(editProject.Imgs)) { return View(GetEditInfo((int)_projectId)); }
       
@@ -147,6 +167,7 @@ namespace MyWebsite.Controllers
     [HttpPost("projects/edit/deleteimg/{id}")]
     public IActionResult DeleteImg(int id)
     {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
       ProjectImg img = dbContext.ProjectImgs.FirstOrDefault(b => b.ProjectImgId == id);
       // TODO remove images in batch using Checkboxes(?)
       // TODO prevent other edits from getting lost (i.e. title, content)

@@ -17,6 +17,16 @@ namespace MyWebsite.Controllers
 {
   public class BlogController : Controller
   {
+    public int? _uid
+    {
+      get { return HttpContext.Session.GetInt32("uid"); }
+      set { HttpContext.Session.SetInt32("uid", (int)value); }
+    }
+    public string _tempMsg
+    {
+      get { return HttpContext.Session.GetString("TempMsg"); }
+      set { HttpContext.Session.SetString("TempMsg", value); }
+    }
     private int? _blogId
     {
       get { return HttpContext.Session.GetInt32("blogID"); }
@@ -70,11 +80,16 @@ namespace MyWebsite.Controllers
     }
 
     [HttpGet("blogs/create")]
-    public IActionResult CreateForm() => View("Create");
+    public IActionResult CreateForm()
+    {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
+      return View("Create");
+    }
 
     [HttpPost("blogs/create")]
     public IActionResult Create(BlogViewModel newBlog)
     {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
       if (ModelState.IsValid)
       {
         if(!AreImagesValid(newBlog.Imgs)) { return View(); }
@@ -102,7 +117,7 @@ namespace MyWebsite.Controllers
           }
           if(img.Length > 5000000)
           {
-            ModelState.AddModelError("Imgs", "Maximum file size is 5Mb");
+            ModelState.AddModelError("Imgs", "Maximum file size is 5MB");
             return false;
           }
         }
@@ -130,7 +145,11 @@ namespace MyWebsite.Controllers
     }
 
     [HttpGet("blogs/edit/{id}")]
-    public IActionResult EditForm(int id) => View("Edit", GetEditInfo(id));
+    public IActionResult EditForm(int id)
+    {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
+      return View("Edit", GetEditInfo(id));
+    }
     public BlogViewModel GetEditInfo(int id)
     {
       _blogId = id;
@@ -145,6 +164,7 @@ namespace MyWebsite.Controllers
     [HttpPost("blogs/edit")]
     public IActionResult Edit(BlogViewModel editBlog)
     {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
       if(!ModelState.IsValid) { return View(); }
       if(!AreImagesValid(editBlog.Imgs)) { return View(GetEditInfo((int)_blogId)); }
       
@@ -161,6 +181,7 @@ namespace MyWebsite.Controllers
     [HttpPost("blogs/edit/deleteimg/{id}")]
     public IActionResult DeleteImg(int id)
     {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
       BlogImg img = dbContext.BlogImgs.FirstOrDefault(b => b.BlogImgId == id);
       // TODO remove images in batch using Checkboxes(?)
       // TODO prevent other edits from getting lost (i.e. title, content)

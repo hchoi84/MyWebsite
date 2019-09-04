@@ -16,6 +16,16 @@ namespace MyWebsite.Controllers
 {
   public class HomeController : Controller
   {
+    public int? _uid
+    {
+      get { return HttpContext.Session.GetInt32("uid"); }
+      set { HttpContext.Session.SetInt32("uid", (int)value); }
+    }
+    public string _tempMsg
+    {
+      get { return HttpContext.Session.GetString("TempMsg"); }
+      set { HttpContext.Session.SetString("TempMsg", value); }
+    }
     private WebsiteContext dbContext;
     private IHostingEnvironment hostingEnvironment;
     public HomeController(WebsiteContext context, IHostingEnvironment hostingEnvironment)
@@ -27,13 +37,13 @@ namespace MyWebsite.Controllers
     [HttpGet("")]
     public IActionResult Index()
     {
-			BlogsProjectsViewModel BPVM = new BlogsProjectsViewModel();
+      BlogsProjectsViewModel BPVM = new BlogsProjectsViewModel();
 
       List<Blog> blogs = dbContext.Blogs
-				.OrderByDescending(b => b.CreatedAt)
-				.Take(3)
-				.ToList();
-			BPVM.Blogs = blogs;
+        .OrderByDescending(b => b.CreatedAt)
+        .Take(3)
+        .ToList();
+      BPVM.Blogs = blogs;
 
       List<Project> projects = dbContext.Projects
         .OrderByDescending(p => p.CreatedAt)
@@ -46,10 +56,60 @@ namespace MyWebsite.Controllers
 
     [HttpGet("login")]
     public IActionResult Login() => View();
+    [HttpPost("login")]
+    public IActionResult LoginUser(Login loginUser)
+    {
+      if (ModelState.IsValid)
+      {
+        User emailCheck = dbContext.Users.FirstOrDefault(user => user.Email == loginUser.Email);
+        if (emailCheck != null)
+        {
+          PasswordHasher<Login> Hasher = new PasswordHasher<Login>();
+          var result = Hasher.VerifyHashedPassword(loginUser, emailCheck.Password, loginUser.Password);
+          if (result != 0)
+          {
+            _uid = emailCheck.UserId;
+            return RedirectToAction("Index");
+          }
+        }
+        ModelState.AddModelError("Login.Email", "Email/Password is incorrect");
+        return View("Login");
+      }
+      return View("Login");
+    }
 
     [HttpGet("register")]
     public IActionResult Register() => View();
+    [HttpPost("register")]
+    public IActionResult CreateUser(User newUser)
+    {
+      if (ModelState.IsValid)
+      {
+        User emailCheck = dbContext.Users.FirstOrDefault(user => user.Email == newUser.Password);
+        if (emailCheck == null)
+        {
+          PasswordHasher<User> Hasher = new PasswordHasher<User>();
+          newUser.Password = Hasher.HashPassword(newUser, newUser.Password);
+          var nu = dbContext.Users.Add(newUser);
+          dbContext.SaveChanges();
+          _uid = nu.Entity.UserId;
+          HttpContext.Session.SetString("UserName", newUser.FirstName);
+          return RedirectToAction("Index");
+        }
+        ModelState.AddModelError("Email", "Email already exists");
+        return View("Register");
+      }
+      return View("Register");
+    }
 
+    [HttpGet("logout")]
+    public IActionResult Logout()
+    {
+      HttpContext.Session.Clear();
+      _tempMsg = "Goodbye!";
+      return RedirectToAction("Index");
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

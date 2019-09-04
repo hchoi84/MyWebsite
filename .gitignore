@@ -26,6 +26,7 @@ bin/
 obj/
 TestResults/
 wwwroot/img
+Migrations/
 ###################
 # Web publish log #
 ###################
