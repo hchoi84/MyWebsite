@@ -4,10 +4,6 @@ for details on configuring this project to bundle and minify static web assets. 
   border: 1px dotted gray;
 } */
 
-/* --------------------------------
-        HOME INDEX
------------------------------------ */
-
 .padding-0-10{
   padding: 0px 10px;
 }
@@ -17,7 +13,22 @@ for details on configuring this project to bundle and minify static web assets. 
 .mb-20{
   margin-bottom: 20px;
 }
+.h-60{
+  height: 60px;
+}
 
+/* --------------------------------
+        NAVBAR
+----------------------------------- */
+.navbar{
+  display: flex; 
+  justify-content: center;
+  height: 50px;
+}
+
+/* --------------------------------
+        HOME
+----------------------------------- */
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -74,6 +85,14 @@ a.navbar-brand {
   height:50px; 
   width:50px;
 }
+@media (max-width:1000px){
+  .recent-project-box{
+    max-width: 100%;
+  }
+  .nav-collapse-color{
+    background-color: white;
+  }
+}
 
 .recent-blogs-header{
   color: #00008b; 
@@ -123,7 +142,7 @@ a.navbar-brand {
 }
 .blog-info-img-box{
   height: 300px; 
-  width: 19%; 
+  width: 24%; 
   display: inline-block; 
   vertical-align: top;
 }
@@ -131,6 +150,21 @@ a.navbar-brand {
   width: 100%; 
   height: 100%; 
   object-fit: cover;
+}
+
+@media (max-width: 1000px){
+  .blog-info-img-box{
+    width: 49%;
+  }
+}
+
+@media (max-width: 768px){
+  .blog-box-date{
+    font-size: 12px;
+  }
+  .blog-info-img-box{
+    width: 100%;
+  }
 }
 
 /* --------------------------------
@@ -166,7 +200,7 @@ a.navbar-brand {
 
 .project-info-img-box{
   height: 300px; 
-  max-width: 19%; 
+  width: 24%; 
   display: inline-block; 
   vertical-align: top;
 }
@@ -174,6 +208,23 @@ a.navbar-brand {
   width: 100%; 
   height: 100%; 
   object-fit: cover;
+}
+
+@media (max-width:1000px){
+  .project-box{
+    width: 49%;
+  }
+  .project-info-img-box{
+    width: 49%;
+  }
+}
+@media (max-width: 768px){
+  .project-box{
+    width: 99%;
+  }
+  .project-info-img-box{
+    width: 100%;
+  }
 }
 
 /* Home page styles
@@ -198,6 +249,7 @@ a.navbar-brand {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
+  min-width: 600px;
   font-size: 14px;
 }
 @media (min-width: 768px) {
