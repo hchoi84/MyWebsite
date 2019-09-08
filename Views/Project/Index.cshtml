@@ -27,12 +27,18 @@
           </h3>
           <p class="text-center">@project.LangAndTech</p>
           <div class="icons project-box-footer">
-            <a href="http://@project.LiveURL" target="_blank">
-              <img src="~/img/icon-web.png" alt="Link to live site">
-            </a>
-            <a href="@project.RepoURL">
-              <img src="~/img/icon-github.png" alt="Github icon">
-            </a>
+            @if (project.LiveURL != null)
+            {
+              <a href="http://@project.LiveURL" target="_blank">
+                <img src="~/img/icon-web.png" alt="Link to live site">
+              </a>
+            }
+            @if (project.RepoURL != null)
+            {
+              <a href="@project.RepoURL" target="_blank">
+                <img src="~/img/icon-github.png" alt="Github icon">
+              </a>
+            }
           </div>
         </div>
       </div>

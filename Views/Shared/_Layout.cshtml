@@ -28,51 +28,55 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
-            <div class="h-60">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse nav-collapse-color">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item" style="margin: 0px 10px; font-size: 25px;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item" style="margin: 0px 10px; font-size: 25px;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Blog" asp-action="Index">Blogs</a>
-                        </li>
-                        <li class="nav-item" style="margin: 0px 10px; font-size: 25px;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">Projects</a>
-                        </li>
-                        @if(ViewBag.isAdmin == true)
-                        {
-                            <li class="nav-item" style="position: absolute; right: 0; margin: 0px 10px; font-size: 20px;">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">
-                                    <span style="color: red;">Logout</span>
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+				<div class="h-60">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse nav-collapse-color">
+						<ul class="navbar-nav flex-grow-1">
+							<li class="nav-item" style="margin: 0px 10px; font-size: 25px;">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+							</li>
+							<li class="nav-item" style="margin: 0px 10px; font-size: 25px;">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Blog" asp-action="Index">Blogs</a>
+							</li>
+							<li class="nav-item" style="margin: 0px 10px; font-size: 25px;">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">Projects</a>
+							</li>
+							@if(ViewBag.isAdmin == true)
+							{
+								<li class="nav-item" style="position: absolute; right: 0; margin: 0px 10px; font-size: 20px;">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">
+										<span style="color: red;">Logout</span>
+									</a>
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+			</nav>
     </header>
     <div>
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3" style="margin-top:50px; width: 100%;">
-            @RenderBody()
-        </main>
+			<partial name="_CookieConsentPartial" />
+			<main >
+				@RenderBody()
+			</main>
     </div>
 
     <footer class="border-top footer text-muted bg-white">
-        <div>
-            <div class="row align-items-center" style="display: flex; justify-content: center; margin-top: 5px;">
-                <p style="height:25px; margin: auto 10px;">&copy; 2019</p>
-                <img src="~/img/icon-linkedin.png" style="height:25px; margin: auto 10px;" alt="Link to live site">
-                <img src="~/img/icon-github.png" style="height:25px; margin: auto 10px;" alt="Github icon">
-            </div>
-        </div>
+			<div>
+				<div class="row align-items-center footer-box">
+					<p>&copy; 2019</p>
+					<a href="https://www.linkedin.com/in/howard-choi-8840809/" target="_blank">
+						<img src="~/img/icon-linkedin.png" alt="Link to live site">
+					</a>
+					<a href="https://github.com/hchoi84" target="_blank">
+						<img src="~/img/icon-github.png" alt="Github icon">
+					</a>
+				</div>
+			</div>
     </footer>
 
     <environment include="Development">

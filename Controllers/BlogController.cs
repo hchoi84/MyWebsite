@@ -41,7 +41,8 @@ namespace MyWebsite.Controllers
     }
 
     [HttpGet("blogs")]
-    public IActionResult Index()
+    public IActionResult Index() => View(GetBlogs());
+    public List<Blog> GetBlogs()
     {
       ViewBag.isAdmin = _uid != null ? true : false;
       ViewBag.Now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -49,7 +50,7 @@ namespace MyWebsite.Controllers
         .OrderByDescending(b => b.CreatedAt)
         .ToList();
       CountBlogs(blogs);
-      return View(blogs);
+      return blogs;
     }
     public void CountBlogs(List<Blog> blogs)
     {
@@ -167,13 +168,7 @@ namespace MyWebsite.Controllers
     [HttpGet("blogs/{year}/{month}")]
     public IActionResult Filter(int year, int month)
     {
-      ViewBag.isAdmin = _uid != null ? true : false;
-      ViewBag.Now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-      List<Blog> blogs = dbContext.Blogs
-        .OrderByDescending(b => b.CreatedAt)
-        .ToList();
-      CountBlogs(blogs);
-      List<Blog> filteredBlogs = blogs.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).ToList();
+      List<Blog> filteredBlogs = GetBlogs().Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).ToList();
       return View("Index", filteredBlogs);
     }
 
