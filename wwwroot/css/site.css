@@ -165,9 +165,19 @@ a.navbar-brand {
 @media (max-width: 768px){
   .blog-box-date{
     font-size: 12px;
+    border-radius: 15px 0px 0px 15px;
   }
   .blog-info-img-box{
     width: 100%;
+  }
+  .blog-box-preview{
+    border-radius: 0px 15px 15px 0px;;
+  }
+  .col-2{
+    padding: 0px 10px 0px 10px;
+  }
+  h4{
+    font-size: 1rem;
   }
 }
 
@@ -175,7 +185,7 @@ a.navbar-brand {
         PROJECT
 ----------------------------------- */
 .project-box{
-  max-width: 33%; 
+  width: 33%; 
   display: inline-block;
 }
 .project-box > img{
@@ -194,7 +204,8 @@ a.navbar-brand {
   height: 59px;
 }
 .project-box-footer{
-  display: flex; 
+  display: flex;
+  height: 50px;
   justify-content: space-evenly;
 }
 .project-box-footer a img{
@@ -214,9 +225,10 @@ a.navbar-brand {
   object-fit: cover;
 }
 
-@media (max-width:1000px){
+@media (max-width: 1000px){
   .project-box{
     width: 49%;
+    vertical-align: top;
   }
   .project-info-img-box{
     width: 49%;
@@ -253,7 +265,7 @@ a.navbar-brand {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  min-width: 600px;
+  
   font-size: 14px;
 }
 @media (min-width: 768px) {

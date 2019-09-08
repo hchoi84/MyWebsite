@@ -177,6 +177,7 @@ a.article:hover {
     }
     #content {
         width: 100%;
+        padding: 40px 0px 0px 20px;
     }
     #content.active {
         width: calc(100% - 110px);
