@@ -11,6 +11,7 @@
 
     <ul class="list-unstyled components">
       <p>Filter Blogs</p>
+      <li><a class="blog-filter" asp-action="Index">Default</a></li>
       <li>
         @for(int i = 0; i < ViewBag.blogCountByYear.Count; i++)
         {
@@ -22,7 +23,7 @@
           {
             if(blog.Value != 0 && blog.Key.Year == year && blog.Key.Month == month)
             {
-              <li><a href="#" class="blog-filter">@blog.Key.ToString("MMM") (@blog.Value)</a></li>
+              <li><a class="blog-filter" asp-action="Filter" asp-route-year="@blog.Key.Year" asp-route-month="@blog.Key.Month">@blog.Key.ToString("MMM") (@blog.Value)</a></li>
             }
             month--;
           }

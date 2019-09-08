@@ -147,6 +147,36 @@ namespace MyWebsite.Controllers
       }
     }
 
+    [HttpPost("blogs/edit")]
+    public IActionResult Edit(BlogViewModel editBlog)
+    {
+      if (_uid == null){ return RedirectToAction("Login", "Home"); }
+      if(!ModelState.IsValid) { return View(); }
+      if(!AreImagesValid(editBlog.Imgs)) { return View(GetEditInfo((int)_blogId)); }
+      
+      Blog blog = dbContext.Blogs.Include(b => b.BlogImgs).FirstOrDefault(b => b.BlogId == _blogId);
+      blog.Update((int)_blogId, editBlog);
+      dbContext.SaveChanges();
+
+      CreateBlogImgRows((int)_blogId, editBlog.Imgs);
+      HttpContext.Session.Remove("blogId");
+      
+      return RedirectToAction("Info", new { title = blog.Title });
+    }
+
+    [HttpGet("blogs/{year}/{month}")]
+    public IActionResult Filter(int year, int month)
+    {
+      ViewBag.isAdmin = _uid != null ? true : false;
+      ViewBag.Now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+      List<Blog> blogs = dbContext.Blogs
+        .OrderByDescending(b => b.CreatedAt)
+        .ToList();
+      CountBlogs(blogs);
+      List<Blog> filteredBlogs = blogs.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).ToList();
+      return View("Index", filteredBlogs);
+    }
+
     [HttpGet("blogs/edit/{id}")]
     public IActionResult EditForm(int id)
     {
@@ -163,23 +193,6 @@ namespace MyWebsite.Controllers
       
       ViewBag.Imgs = blog.BlogImgs;
       return editBlog;
-    }
-    
-    [HttpPost("blogs/edit")]
-    public IActionResult Edit(BlogViewModel editBlog)
-    {
-      if (_uid == null){ return RedirectToAction("Login", "Home"); }
-      if(!ModelState.IsValid) { return View(); }
-      if(!AreImagesValid(editBlog.Imgs)) { return View(GetEditInfo((int)_blogId)); }
-      
-      Blog blog = dbContext.Blogs.Include(b => b.BlogImgs).FirstOrDefault(b => b.BlogId == _blogId);
-      blog.Update((int)_blogId, editBlog);
-      dbContext.SaveChanges();
-
-      CreateBlogImgRows((int)_blogId, editBlog.Imgs);
-      HttpContext.Session.Remove("blogId");
-      
-      return RedirectToAction("Info", new { title = blog.Title });
     }
 
     [HttpPost("blogs/edit/deleteimg/{id}")]
