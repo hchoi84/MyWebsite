@@ -42,7 +42,7 @@ namespace MyWebsite
             }
 
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            
             app.UseSession();
 
             app.UseMvc(routes =>
