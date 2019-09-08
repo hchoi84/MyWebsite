@@ -25,7 +25,7 @@ _UpgradeReport_Files/
 bin/
 obj/
 TestResults/
-wwwroot/img
+wwwroot/img/
 Migrations/
 ###################
 # Web publish log #
@@ -58,7 +58,7 @@ Migrations/
 ######################
 .DS_Store?
 ehthumbs.db
-Icon?
+# Icon?
 Thumbs.db
 [Bb]in
 [Oo]bj
