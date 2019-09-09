@@ -16,6 +16,9 @@ for details on configuring this project to bundle and minify static web assets. 
 .h-60{
   height: 60px;
 }
+.multiline{
+  white-space: pre-line;
+}
 
 /* --------------------------------
         NAVBAR
