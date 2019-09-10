@@ -26,11 +26,19 @@
     <h4>Most difficult part:</h4>
     <p class="multiline">@Model.Difficult</p>
 
-    <h4>Github Repo: </h4>
-    <p><a href="@Model.RepoURL" target="_blank"> Click here to see the Repo</a></p>
+    @if (Model.RepoURL != null)
+    {
+      <h4>Github Repo: </h4>
+      <p>
+        <a href="@Model.RepoURL" target="_blank"> Click here to see the Repo</a>
+      </p>
+    }
 
-    <h4>Live Link: </h4>
-    <p><a href="http://@Model.LiveURL" target="_blank">Click here for Live Demo</a></p>
+    @if (Model.LiveURL != null)
+    {
+      <h4>Live Link: </h4>
+      <p><a href="http://@Model.LiveURL" target="_blank">Click here for Live Demo</a></p>
+    }
   </div>
 
   <div class="text-center">
