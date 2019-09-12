@@ -46,7 +46,7 @@ namespace MyWebsite.Controllers
         .ToList();
       foreach (Blog blog in blogs)
       {
-        DateTime localTime = TimeZoneInfo.ConvertTime(blog.CreatedAt, TimeZoneInfo.Local);
+        DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(blog.CreatedAt, TimeZoneInfo.Local);
         blog.CreatedAt = localTime;
       }
       BPVM.Blogs = blogs;
