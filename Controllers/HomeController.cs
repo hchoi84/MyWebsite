@@ -44,6 +44,11 @@ namespace MyWebsite.Controllers
         .OrderByDescending(b => b.CreatedAt)
         .Take(3)
         .ToList();
+      foreach (Blog blog in blogs)
+      {
+        DateTime localTime = TimeZoneInfo.ConvertTime(blog.CreatedAt, TimeZoneInfo.Local);
+        blog.CreatedAt = localTime;
+      }
       BPVM.Blogs = blogs;
 
       List<Project> projects = dbContext.Projects
