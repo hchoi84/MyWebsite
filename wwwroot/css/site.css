@@ -4,6 +4,9 @@ for details on configuring this project to bundle and minify static web assets. 
   border: 1px dotted gray;
 } */
 
+main{
+  margin: 0 1rem;
+}
 .padding-0-10{
   padding: 0px 10px;
 }
@@ -221,6 +224,7 @@ a.navbar-brand {
   width: 24%; 
   display: inline-block; 
   vertical-align: top;
+  margin: 1rem 0 1rem 0;
 }
 .project-info-img-box a img{
   width: 100%; 
@@ -268,7 +272,6 @@ a.navbar-brand {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  
   font-size: 14px;
 }
 @media (min-width: 768px) {
