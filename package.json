@@ -1,0 +1,23 @@
+{
+  "name": "howardchoi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "node-sass -w scss/ -o wwwroot/css/ --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hchoi84/MyWebsite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hchoi84/MyWebsite/issues"
+  },
+  "homepage": "https://github.com/hchoi84/MyWebsite#readme",
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  }
+}

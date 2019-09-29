@@ -1,0 +1,110 @@
+@media(max-width: 768px){
+  #home-projects{
+    .projects{
+      flex-direction: column;
+      margin: 0 0.5rem;
+
+      .project{
+        margin: 1rem 0;
+        border: 1px solid $light-color;
+        box-shadow: 0 0 5px $medium-color;
+      }
+    }
+  }
+
+  #home-header{
+    h1{ font-size: 4.5rem; }
+    p{ font-size: 1.5rem; }
+  }
+
+  %grid-mobile-shared{
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  %grid-mobile-item-shared{
+    border: 1px solid $light-color;
+    box-shadow: 0 0 5px $medium-color;
+  }
+
+  #project-index{
+    .projects{
+      @extend %grid-mobile-shared;
+      
+      .project{ @extend %grid-mobile-item-shared; }
+    }
+  }
+
+  .image-gallery{
+    @extend %grid-mobile-shared;
+
+    .image{ @extend %grid-mobile-item-shared; }
+  }
+}
+
+@media(max-width: 414px){
+  .p-2{ padding: 1.5rem; }
+  .section-title{
+    height: 3rem;
+    font-size: 2rem;
+    margin: 2rem;
+  }
+  .title{
+    margin: 1.5rem 0 1rem 0;
+    font-size: 2rem;
+  }
+
+  #navbar{
+    .navbar-content{
+      flex-direction: column;
+    }
+
+    .navbar-brand{
+      font-size: 1.5rem;
+    }
+
+    ul li{
+      font-size: 1rem;
+      margin: 0 0.5rem;
+    }
+  }
+
+  #home-header{
+    line-height: 2rem;
+    height: 50vh;
+
+    h1{ display: none; }
+  }  
+
+  %blogs-shared{
+    .blog-content h2{
+      font-size: 1.2rem;
+    }
+  }
+
+  %form-row{
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .form-row{
+    input, textarea{
+      width: 100%;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    label{
+      display: block;
+    }
+
+    input, textarea{
+      font-size: 1rem;
+    }
+  }
+
+  button[type='submit']{
+    display: block;
+    margin: auto;
+  }
+}

@@ -3,45 +3,39 @@
 }
 @model List<Project>
 
-<div class="header-spacing">
-  @if(ViewBag.isAdmin == true)
-  {
-    <div class="text-center">
-      <a asp-action="CreateForm">
-        <button class="btn btn-info">
-          <span>Create Project</span>
-        </button>
-      </a>
-    </div>
-  }
-  <p class="text-center">Projects from oldest (botton right) to newest (top left) by update date</p>
-
+<section id="project-index" class="p-2">
   <div class="container">
-    @foreach(Project project in Model)
+    @if(ViewBag.isAdmin == true)
     {
-      <div class="col-sm project-section project-box">
-        <img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt">
-        <div class="padding-0-10">
-          <h3 class="text-center">
-            <a asp-action="Info" asp-route-title="@project.Title">@project.Title</a>
-          </h3>
-          <p class="text-center">@project.LangAndTech</p>
-          <div class="icons project-box-footer">
-            @if (project.LiveURL != null)
-            {
-              <a href="http://@project.LiveURL" target="_blank">
-                <img src="~/icons/icon-web.png" alt="Link to live site">
-              </a>
-            }
-            @if (project.RepoURL != null)
-            {
-              <a href="@project.RepoURL" target="_blank">
-                <img src="~/icons/icon-github.png" alt="Github icon">
-              </a>
-            }
-          </div>
-        </div>
+      <div class="text-center">
+        <a asp-action="CreateForm">
+          <button class="btn-primary">Create Project</button>
+        </a>
       </div>
     }
+    <div class="section-title">
+      <span>All Projects</span>
+    </div>
+    <div class="projects">
+      @foreach(Project project in Model)
+      {
+        <div class="project">
+          <div class="project">
+            <div class="project-image">
+              <img src="~/img/@project.ProjectImgs[0].ImgLoc" alt="@project.ProjectImgs[0].Alt">
+            </div>
+            <div class="project-text px-2">
+              <div class="project-text-wrap">
+                <h2 class="project-text-title">@project.Title</h2>
+                <p class="project-text-languages">@project.LangAndTech</p>
+                <a asp-controller="Project" asp-action="Info" asp-route-title="@project.Title">
+                  <button>See More</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
   </div>
-</div>
+</section>

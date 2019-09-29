@@ -3,23 +3,31 @@
 }
 @model BlogViewModel
 
-<div class="header-spacing">
+<section id="blog-create" class="p-2">
+  <div class="container">
+    <div class="section-title">
+      <span>Create Blog</span>
+    </div>
+  </div>
   <form enctype="multipart/form-data" asp-controller="Blog" asp-action="Create" method="post">
-    <div class="form-group">
-      <label asp-for="Title">Title</label>
-      <input asp-for="Title" class="form-control">
+    <div class="form-row">
+      <label class="form-row-label" asp-for="Title">Title</label>
+      <input class="form-row-input" asp-for="Title" class="form-control">
       <span asp-validation-for="Title"></span>
     </div>
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="Content">Content</label>
       <textarea asp-for="Content" class="form-control"></textarea>
       <span asp-validation-for="Content"></span>
     </div>
     <div class="custom-file">
       <input multiple asp-for="Imgs" class="custom-file-input">
-      <label asp-for="Imgs" class="custom-file-label">Choose Files(s)...</label>
+      <label asp-for="Imgs" class="custom-file-label">
+        <i class="fas fa-upload"></i>
+        Choose Files(s)...
+      </label>
       <span asp-validation-for="Imgs"></span>
     </div>
-    <button type="submit" class="btn btn-primary mt-20">Submit</button>
+    <button type="submit" class="btn-primary">Submit</button>
   </form>
-</div>
+</section>

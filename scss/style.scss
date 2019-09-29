@@ -1,0 +1,298 @@
+@import 'presets';
+
+// ===================================
+// NavBar
+#navbar{
+  background: $main-color;
+
+  .navbar-content{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-brand{
+    font-size: 2rem;
+    cursor: default;
+  }
+
+  ul{
+    display: flex;
+    margin-top: 5px;
+
+    li{
+      font-size: 1.5rem;
+      margin: 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid transparent;
+
+      &:hover{
+        border-bottom: 3px solid $secondary-color;
+
+        a{
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// ===================================
+// Home Header
+#home-header{
+  background: rgba(92, 219, 149, 0.2);
+  color: white;
+  height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  line-height: 6rem;
+
+  &::before{
+    content: '';
+    background: url('../img/home-header-bg.jpg') no-repeat center center/cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  h1{
+    font-size: 6rem;
+  }
+
+  p{
+    font-size: 2.5rem;
+  }
+}
+
+// ===================================
+// Home - Projects
+#home-projects{
+  .projects{
+    display: flex;
+    margin-bottom: 2rem;
+    margin: auto;
+  }
+}
+
+// nesting this within .projects cause an issue... can't remember what the issue was. Maybe hover?
+.project{
+  flex: 1;
+  position: relative;
+  max-height: 300px;
+
+  &:hover &-content{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &-image{
+    width: 100%;
+    height: 100%;
+
+    img{
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &-content{
+    background: rgba(5, 56, 107, 0.9);
+    color: #fff;
+    position: absolute;
+    padding-top: 10%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    transform: translateY(-50%) rotate(25deg);
+    transition: all 500ms;
+    pointer-events: none;
+
+    h2{
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    p{
+      margin: 0 0 2rem 0;
+    }
+
+    a button{
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      transition: all 0.5s;
+      border: none;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: all 1s;
+      border-radius: 5px;
+
+      &:hover{
+        background: $main-color;
+        color: #000;
+      }
+    }
+  }
+}
+
+// ===================================
+// Home - Blogs
+#home-blogs{
+  padding-top: 0;
+
+  .blogs{
+    @extend %blogs-shared;
+  }
+}
+
+// ===================================
+// Blogs - Index
+#blogs-index{
+  .blogs{
+    @extend %blogs-shared;
+    border-bottom: 1px solid $light-color;
+
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+}
+
+#blog-info{
+  height: auto;
+  border-bottom: 1px solid $light-color;
+
+  .blog-info{
+    &-date{
+      margin-bottom: 1rem;
+    }
+
+    &-content{
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      text-align: left;
+      margin: 1rem 0;
+    }
+  }
+}
+
+// ===================================
+// Projects - Index
+#project-index{
+  .projects{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+  }
+}
+
+.project{
+  width: 100%;
+  height: 300px;
+  
+  &:hover &-text{
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    transition: all 500ms;
+  }
+
+  &:hover &-text-wrap{
+    display: inline-block;
+    opacity: 1;
+    pointer-events: auto;
+    // transitioning IN (speed, delay)
+    transition: opacity 300ms 500ms;
+  }
+
+  &-text{
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(5, 56, 107, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 300ms;
+    color: #fff;
+  }
+
+  &-text-wrap{
+    opacity: 0;
+    // transitioning OUT
+    transition: all 100ms;
+    pointer-events: none;
+
+    h2{
+      margin: 2rem;
+    }
+
+    p{
+      margin-bottom: 2rem;
+    }
+
+    a button{
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      transition: all 0.5s;
+      border: none;
+      cursor: pointer;
+      transition: all 1s;
+      border-radius: 5px;
+
+      &:hover{
+        background: $main-color;
+        color: #000;
+      }
+    }
+  }
+}
+
+// ===================================
+// Project - Info
+#project-info{
+  border-bottom: 1px solid $light-color;
+
+  h3, p{
+    text-align: left;
+  }
+
+  h3{
+    margin-bottom: .5rem;
+  }
+
+  p{
+    margin-bottom: 1rem;
+  }
+
+  .icons{
+    text-align: left;
+    a{
+      margin: 0 1rem;
+    }
+  }
+}
+
+// ===================================
+// Footer
+#footer{
+  background: $light-color;
+  padding: 1rem 2rem;
+}
+
+.footer-content{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+
+@import 'mobile';

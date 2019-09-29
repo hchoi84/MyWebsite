@@ -27,6 +27,7 @@ obj/
 TestResults/
 wwwroot/img/
 Migrations/
+node_modules/
 ###################
 # Web publish log #
 ###################
@@ -76,3 +77,4 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 appsettings.json
+package-lock.json

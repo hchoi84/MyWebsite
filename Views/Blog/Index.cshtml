@@ -1,95 +1,48 @@
 @{
     ViewData["Title"] = "Blogs";
+    int i = 0;
+    bool newOrSameMonth = true;
 }
 @model List<Blog>
 
-<div class="wrapper">
-  <nav id="sidebar">
-    <div class="sidebar-header">
-      Blog Filter
-    </div>
-
-    <ul class="list-unstyled components">
-      <p>Filter Blogs</p>
-      <li><a class="blog-filter" asp-action="Index">Default</a></li>
-      <li>
-        @for(int i = 0; i < ViewBag.blogCountByYear.Count; i++)
-        {
-          int year = ViewBag.Now.Year;
-          int month = ViewBag.Now.Month;
-          <a href="#yearSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle blog-filter">@year (@ViewBag.blogCountByYear[year])</a>
-          <ul class="collapse list-unstyled" id="yearSubmenu">
-          @foreach(KeyValuePair<DateTime, int> blog in ViewBag.blogCountByMonth)
-          {
-            if(blog.Value != 0 && blog.Key.Year == year && blog.Key.Month == month)
-            {
-              <li><a class="blog-filter" asp-action="Filter" asp-route-year="@blog.Key.Year" asp-route-month="@blog.Key.Month">@blog.Key.ToString("MMM") (@blog.Value)</a></li>
-            }
-            month--;
-          }
-          </ul>
-          year--;
-        }
-      </li>
-    </ul>
-  </nav>
-
-  <div id="content">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-20">
-      <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
-          <i class="fas fa-align-left"></i>
-          <span>Toggle Filter</span>
-        </button>
-        @if(ViewBag.isAdmin == true)
-        {
-          <a asp-action="CreateForm">
-            <button class="btn btn-info">
-              <span>Create Blog</span>
-            </button>
-          </a>
-        }
-      </div>
-    </nav>
-
-    <h1>@Model[0].CreatedAt.ToString("MMMM")</h1>
-    <div class="row justify-content-md-center blog-box">
-      <div class="col-2 text-center blog-box-date">
-        <h4>@Model[0].CreatedAt.Day</h4>
-        <h4>@Model[0].CreatedAt.ToString("ddd")</h4>
-        <h4>@Model[0].CreatedAt.ToString("HH:mm")</h4>
-      </div>
-      <div class="col-9 blog-box-preview">
-        <h4>
-          <a asp-action="Info" asp-route-title="@Model[0].Title">@Model[0].Title</a>
-        </h4>
-        <p>
-          @Model[0].Content
-        </p>
-      </div>
-    </div>
-    @for (int i = 1; i < Model.Count; i++)
+<section id="blogs-index" class="p-2">
+  <div class="container">
+    @if(ViewBag.isAdmin == true)
     {
-      if (Model[i].CreatedAt.Month != Model[i-1].CreatedAt.Month)
+      <a asp-action="CreateForm">
+        <button class="btn-primary">Create Blog</button>
+      </a>
+    }
+    @while (i < Model.Count)
+    {
+      newOrSameMonth = true;
+      if (i == 0 || Model[i].CreatedAt.Month != Model[i-1].CreatedAt.Month)
       {
-        <h1>@Model[i].CreatedAt.ToString("MMMM")</h1>
+        <div class="section-title">
+          <span>@Model[i].CreatedAt.ToString("MMMM")</span>
+        </div>
       }
-      <div class="row justify-content-md-center blog-box">
-        <div class="col-2 text-center blog-box-date">
-          <h4>@Model[i].CreatedAt.Day</h4>
-          <h4>@Model[i].CreatedAt.ToString("ddd")</h4>
-          <h4>@Model[i].CreatedAt.ToString("HH:mm")</h4>
-        </div>
-        <div class="col-9 blog-box-preview">
-          <h4><a asp-action="Info" asp-route-title="@Model[i].Title">
-            @Model[i].Title
-          </a></h4>
-          <p>
-            @Model[i].Content
-          </p>
-        </div>
+      <div class="blogs">
+        @while((i < Model.Count) && (i == 0 || newOrSameMonth))
+        {
+          <div class="blog py-1">
+            <a asp-controller="Blog" asp-action="Info" asp-route-title="@Model[i].Title">
+              <div class="blog-content px-2">
+                <h2>@Model[i].Title</h2>
+                <p>@Model[i].Content</p>
+                <small>@Model[i].CreatedAt PST</small>
+              </div>
+            </a>
+          </div>
+          i++;
+          if(i >= Model.Count){
+            break;
+          }
+          else{
+            newOrSameMonth = Model[i].CreatedAt.Month == Model[i-1].CreatedAt.Month;
+          }
+        }
       </div>
     }
-
   </div>
-</div>
+</section>

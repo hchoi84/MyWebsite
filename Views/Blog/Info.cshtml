@@ -3,31 +3,35 @@
 }
 @model Blog
 
-<div class="header-spacing">
-  @if(ViewBag.isAdmin == true)
-  {
-    <div class="text-center">
-      <a asp-action="EditForm" asp-route-id="@Model.BlogId">
-        <button class="btn btn-info">
-          <span>Edit Blog</span>
-        </button>
-      </a>
-    </div>
-  }
-  <h1 class="text-center">@Model.Title</h1>
-  <p class="text-center">@Model.CreatedAt.ToString("yyyy-MM-dd dddd HH:mm")</p>
-  <p class="multiline">
-    @Model.Content
-  </p>
-
-  <div class="text-center">
-    @foreach(BlogImg img in Model.BlogImgs)
+<section id="blog-info" class="p-2">
+  <div class="container">
+    @if(ViewBag.isAdmin == true)
     {
-      <div class="col blog-info-img-box">
-        <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
-          <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="proj-images img-fluid">
+      <div class="text-center">
+        <a asp-action="EditForm" asp-route-id="@Model.BlogId">
+          <button class="btn-primary">Edit Blog</button>
         </a>
-      </div>  
+      </div>
     }
+    <h1 class="title">@Model.Title</h1>
+    <p class="blog-info-date">@Model.CreatedAt.ToString("yyyy-MM-dd dddd HH:mm")</p>
+    <p class="blog-info-content multiline">
+      @Model.Content
+    </p>
   </div>
-</div>
+</section>
+
+<section class="p-2">
+  <div class="container">
+    <div class="image-gallery">
+      @foreach(BlogImg img in Model.BlogImgs)
+      {
+        <div class="image">
+          <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
+            <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="img-fluid">
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</section> 

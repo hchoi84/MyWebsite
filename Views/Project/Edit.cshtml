@@ -3,33 +3,38 @@
 }
 @model ProjectViewModel
 
-<div class="header-spacing">
+<section id="project-create" class="p-2">
+  <div class="container">
+    <div class="section-title">
+      <span>Edit Project</span>
+    </div>
+  </div>
   <form enctype="multipart/form-data" asp-controller="Project" asp-action="Edit" method="post">
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="Title">Title</label>
       <input asp-for="Title" class="form-control">
       <span asp-validation-for="Title"></span>
     </div>
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="LangAndTech">Language and Tech</label>
       <input asp-for="LangAndTech" class="form-control">
       <span asp-validation-for="LangAndTech"></span>
     </div>
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="Learned">Learned</label>
       <textarea asp-for="Learned" class="form-control"></textarea>
       <span asp-validation-for="Learned"></span>
     </div>
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="Difficult">Difficulty</label>
       <textarea asp-for="Difficult" class="form-control"></textarea>
       <span asp-validation-for="Difficult"></span>
     </div>
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="RepoURL">Repo URL</label>
       <input asp-for="RepoURL" class="form-control">
     </div>
-    <div class="form-group">
+    <div class="form-row">
       <label asp-for="LiveURL">Live URL</label>
       <input asp-for="LiveURL" class="form-control">
     </div>
@@ -38,20 +43,26 @@
       <label asp-for="Imgs" class="custom-file-label">Choose File(s)...</label>
       <span asp-validation-for="Imgs"></span>
     </div>
-    <button type="submit" class="btn btn-primary mt-20">Update</button>
+    <button type="submit" class="btn-primary">Update</button>
   </form>
+</section>
 
-  <div class="text-center">
-    @foreach(ProjectImg img in ViewBag.Imgs)
-    {
-    <div class="col project-info-img-box">
-      <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
-        <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="proj-images img-fluid">
-      </a>
-      <form asp-controller="Project" asp-action="DeleteImg" asp-route-id=@img.ProjectImgId method="post">
-        <button class="btn btn-danger">DELETE</button>
-      </form>
+<section class="p-2">
+  <div class="container">
+    <div class="image-gallery">
+      @foreach(ProjectImg img in ViewBag.Imgs)
+      {
+      <div class="image">
+        <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
+          <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="proj-images img-fluid">
+        </a>
+        <div class="delete">
+          <form asp-controller="Project" asp-action="DeleteImg" asp-route-id=@img.ProjectImgId method="post">
+            <button class="btn-delete">DEL</button>
+          </form>
+        </div>
+      </div>
+      }
     </div>
-    }
   </div>
-</div>
+</section>

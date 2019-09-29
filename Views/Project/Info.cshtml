@@ -3,52 +3,55 @@
 }
 @model Project
 
-<div class="header-spacing">
-  @if(ViewBag.isAdmin == true)
-  {    
-    <div class="text-center">
-      <a asp-action="EditForm" asp-route-id="@Model.ProjectId">
-        <button class="btn btn-info">
-          <span>Edit Project</span>
-        </button>
-      </a>
-    </div>
-  }
-  <h1 class="text-center mb-20">@Model.Title</h1>
-
-  <div class="mt-20">
-    <h4>Language and Technologies:</h4>
+<section id="project-info" class="p-2">
+  <div class="container">
+    @if(ViewBag.isAdmin == true)
+    {    
+      <div class="text-center">
+        <a asp-action="EditForm" asp-route-id="@Model.ProjectId">
+          <button class="btn-primary">Edit Project</button>
+        </a>
+      </div>
+    }
+    <h1 class="title">@Model.Title</h1>
+    <h3>Language and Technologies:</h3>
     <p>@Model.LangAndTech</p>
-
-    <h4>What I learned:</h4>
+    <h3>What I learned:</h3>
     <p class="multiline">@Model.Learned</p>
-
-    <h4>Most difficult part:</h4>
+    <h3>Most difficult part:</h3>
     <p class="multiline">@Model.Difficult</p>
-
-    @if (Model.RepoURL != null)
+    @if (Model.RepoURL != null || Model.LiveURL != null)
     {
-      <h4>Github Repo: </h4>
-      <p>
-        <a href="@Model.RepoURL" target="_blank"> Click here to see the Repo</a>
-      </p>
+      <h3>Project Related Links:</h3>
     }
-
-    @if (Model.LiveURL != null)
-    {
-      <h4>Live Link: </h4>
-      <p><a href="http://@Model.LiveURL" target="_blank">Click here for Live Demo</a></p>
-    }
-  </div>
-
-  <div class="text-center">
-    @foreach(ProjectImg img in Model.ProjectImgs)
-    {
-    <div class="col project-info-img-box">
-      <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
-        <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="proj-images img-fluid">
-      </a>
+    <div class="icons">
+      @if (Model.RepoURL != null)
+      {
+        <a href="@Model.RepoURL" target="_blank">
+          <i class="fab fa-github fa-2x"></i>
+        </a>
+      }
+      @if (Model.LiveURL != null)
+      {
+        <a href="http://@Model.LiveURL" target="_blank">
+          <i class="fas fa-window-maximize fa-2x"></i>
+        </a>
+      }
     </div>
-    }
   </div>
-</div>
+</section>
+
+<section class="p-2">
+  <div class="container">
+    <div class="image-gallery">
+      @foreach(ProjectImg img in Model.ProjectImgs)
+      {
+        <div class="image">
+          <a href="~/img/@img.ImgLoc" data-lightbox="mygallery" data-title="@img.Alt">
+            <img src="~/img/@img.ImgLoc" alt="@img.Alt" class="img-fluid">
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</section>  
